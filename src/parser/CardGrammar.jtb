@@ -1,0 +1,199 @@
+/**
+ * JTB template file created by SF JavaCC plugin 1.5.28+ wizard for JTB 1.4.0.2+ and JavaCC 1.5.0+
+ */options{  static = true;  JTB_P = "parser";
+}PARSER_BEGIN(CardGrammar)package parser;
+import parser.visitor.*;
+import java.awt.EventQueue;
+import gui.MainWindow;
+
+
+public class CardGrammar{
+
+  public static void main(String args [])  {/*
+    ParseManager pm = new ParseManager();
+    pm.init();*/
+		
+     EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainWindow window = new MainWindow();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});  }}class MyVisitor extends DepthFirstVoidVisitor{  public void visit(NodeToken n)  {    System.out.println("visit " + n.tokenImage);  }}PARSER_END(CardGrammar)SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| < "//" (~[ "\n", "\r" ])*
+    (
+      "\n"
+    | "\r"
+    | "\r\n"
+    ) >
+| < "/*" (~[ "*" ])* "*"
+    (
+      ~[ "/" ] (~[ "*" ])* "*"
+    )*
+    "/" >
+}
+
+TOKEN : /* KEYWORD */
+{
+	< SPELL : "SPELL" >
+| 	< PERMANENT : "PERMANENT" >
+| 	< CREATURE : "CREATURE" >
+| 	< ELEMENT: "ELEMENT" >
+| 	< COST: "COST" >
+| 	< MONO: "MONO" >
+|  	< DUO: "DUO" >
+| 	< TRIO: "TRIO" >
+| 	< SUBTYPE: "SUBTYPE" >
+| 	< STAT: "STAT" >
+| 	< TEXT: "TEXT" >
+| 	< ELEMENTS : "AIR" | "EARTH" | "WATER" | "FIRE" |
+				"LIFE" | "DEATH" | "SPACE" | "TIME" |
+				"LIGHT" | "DARKNESS" | "NOUS" | "VOID"| "INCOLOR" >
+
+
+| < LBLOCK : "{" >
+| < RBLOCK : "}" >
+| < LPAR : "(" >
+| < RPAR : ")" >
+
+| < NUMBER : ("-")? (< DIGIT >)+ >
+| < WORD : (< DIGIT > | < LETTER >)+ >
+| < PUNCT: "," | "." | ":" | ";"| "'" >
+| < MATH: "+" | "-" | "*" | "/" >  
+| < #DIGIT : ["0"-"9"] >
+| < #LETTER : ["a"-"z"]|["A"-"Z"] >
+
+}
+
+
+
+void Scope() :
+{}
+{
+  Spell() | Permanent() | Creature()
+
+}
+
+void Spell() :
+{}
+{
+
+ < SPELL > Name()
+ < LBLOCK >
+ 		Element()
+ 		Cost()
+ 		Subtype()
+ 		Text()
+ < RBLOCK >
+}
+
+void Permanent() :
+{}
+{
+ < PERMANENT > Name()
+ < LBLOCK >
+ 		Element()
+ 		Cost()
+ 		Subtype()
+ 		Text()
+ < RBLOCK >
+}
+
+void Creature() :
+{}
+{
+ < CREATURE > Name()
+ < LBLOCK >
+ 		Element()
+ 		Cost()
+ 		Subtype()
+ 		Stat()
+ 		Text()
+ < RBLOCK >
+}
+
+void Name() :
+{}
+{
+ 	< WORD > (< WORD > | < PUNCT >)*
+}
+
+void Element() :
+{}
+{
+ 	< ELEMENT >
+ 		< LPAR >
+ 			< ELEMENTS >
+ 		< RPAR >
+}
+
+void Cost() :
+{}
+{
+ 	< COST > (Mono() | Duo() | Trio()) 
+}
+
+void Mono() :
+{}
+{
+	< MONO >
+		< LPAR >
+			< NUMBER > < ELEMENTS >
+		< RPAR >
+}
+
+void Duo() :
+{}
+{
+	< DUO >
+		< LPAR >
+			< NUMBER > < ELEMENTS >
+			< NUMBER > < ELEMENTS >
+		< RPAR >
+}
+
+void Trio() :
+{}
+{
+  < TRIO >
+  		< LPAR >
+			< NUMBER > < ELEMENTS >
+			< NUMBER > < ELEMENTS >
+			< NUMBER > < ELEMENTS >
+		< RPAR >
+}
+
+void Subtype() :
+{}
+{
+  < SUBTYPE >
+  		< LPAR >
+  			(< WORD >)+
+  		< RPAR >
+}	
+
+void Text() :
+{}
+{
+  < TEXT >
+  		< LPAR >
+			( < WORD > | < ELEMENTS > | < PUNCT > | < MATH > | < NUMBER > )*
+  		< RPAR >
+}
+
+
+void Stat() :
+{}
+{
+  < STAT >
+  		< LPAR >
+		< NUMBER > < NUMBER > < NUMBER > 
+  		< RPAR >
+}
