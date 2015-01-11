@@ -45,6 +45,7 @@ public class GrammarPanel extends JPanel {
 	private JScrollPane scrollPane;
 	private JLabel lblResult;
 	private JScrollPane scrollPane_1;
+	private JButton btnShowTree;
 	
 	public void setManagers( GuiManager guimanager, ParseManager parseManager )
 	{
@@ -57,15 +58,16 @@ public class GrammarPanel extends JPanel {
 	public GrammarPanel(  ) 
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{252, 0};
+		gridBagLayout.columnWidths = new int[] {100, 100, 0};
 		gridBagLayout.rowHeights = new int[]{287, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.gridx = 0;
@@ -97,15 +99,22 @@ public class GrammarPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnParse = new GridBagConstraints();
-		gbc_btnParse.insets = new Insets(0, 0, 5, 0);
+		gbc_btnParse.insets = new Insets(0, 0, 5, 5);
 		gbc_btnParse.gridx = 0;
 		gbc_btnParse.gridy = 1;
 		add(btnParse, gbc_btnParse);
 		
+		btnShowTree = new JButton("Show Tree");
+		GridBagConstraints gbc_btnShowTree = new GridBagConstraints();
+		gbc_btnShowTree.insets = new Insets(0, 0, 5, 0);
+		gbc_btnShowTree.gridx = 1;
+		gbc_btnShowTree.gridy = 1;
+		add(btnShowTree, gbc_btnShowTree);
+		
 		horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 		gbc_horizontalStrut.fill = GridBagConstraints.HORIZONTAL;
-		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 0);
+		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_horizontalStrut.gridx = 0;
 		gbc_horizontalStrut.gridy = 2;
 		add(horizontalStrut, gbc_horizontalStrut);
@@ -113,7 +122,8 @@ public class GrammarPanel extends JPanel {
 		lblResult = new JLabel("Result:");
 		lblResult.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblResult = new GridBagConstraints();
-		gbc_lblResult.anchor = GridBagConstraints.WEST;
+		gbc_lblResult.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblResult.gridwidth = 2;
 		gbc_lblResult.insets = new Insets(0, 0, 5, 0);
 		gbc_lblResult.gridx = 0;
 		gbc_lblResult.gridy = 3;
@@ -122,6 +132,7 @@ public class GrammarPanel extends JPanel {
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.gridwidth = 2;
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridx = 0;
 		gbc_scrollPane_1.gridy = 4;
