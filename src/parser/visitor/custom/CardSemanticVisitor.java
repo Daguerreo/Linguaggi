@@ -233,7 +233,7 @@ public class CardSemanticVisitor implements IVoidVisitor
 		// f6 -> <RPAR>
 		n.f6.accept(this);
 		
-		if( element.equals(n.f3.tokenImage) || element.equals(n.f5.tokenImage))
+		if( !element.equals(n.f3.tokenImage) && !element.equals(n.f5.tokenImage))
 		{
 			outMsg = "Semantic Error: Card cost must have one Element in common with the Card Type.\n";
 		}
@@ -262,7 +262,7 @@ public class CardSemanticVisitor implements IVoidVisitor
 		// f8 -> <RPAR>
 		n.f8.accept(this);
 		
-		if( element.equals(n.f3.tokenImage) || element.equals(n.f5.tokenImage) || element.equals(n.f7.tokenImage) )
+		if( !element.equals(n.f3.tokenImage) && !element.equals(n.f5.tokenImage) && !element.equals(n.f7.tokenImage) )
 		{
 			outMsg = "Semantic Error: Card cost must have one Element in common with the Card Type.\n";
 		}

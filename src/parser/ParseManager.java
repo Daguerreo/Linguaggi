@@ -12,8 +12,8 @@ import parser.visitor.custom.CardSemanticVisitor;
 
 public class ParseManager 
 {
-	private String in;
-	private String out;
+	private String in = "";
+	private String out = "";
 	private GuiManager gm;
 	
 	public ParseManager( )
@@ -29,7 +29,6 @@ public class ParseManager
 	{
 		System.out.println("Sono Card Grammar lolololoool...");
 	    System.out.println("It's time to duel! :\n");
-	    //new CardGrammar(System.in);
 	    new CardGrammar( new StringReader(in) );
 	    parse();
 	}
@@ -43,6 +42,7 @@ public class ParseManager
 	
 	public void parse()
 	{
+		out = "";
 		try  
 	    {
 			Scope start = CardGrammar.Scope();
@@ -51,25 +51,24 @@ public class ParseManager
 			v.setGuiManager(gm);
 			start.accept(v);
 			start.accept(s);
+			//Semantic Error
 			out = s.getOutMsg();
-			gm.showResult("lulululu"); 
 	    }
 	    catch (Exception e)
 	    {
 	    	//Syntax Error
+	    	out = "Syntax Error: " + e.getMessage();
 	    	System.out.println(e.getMessage());
-	    	gm.showResult( e.getMessage());
 	    }
 		catch (TokenMgrError e1)
 		{
 			//Lexical Error
-			gm.showResult( e1.getMessage());
+			out += e1.getMessage();
 			gm.showResult("bububu");
 			System.err.println(e1.getMessage());
 			 
 		}
-
-		gm.showResult("lololo"); 
+		gm.showResult(out); 
 	}
 
 	public String getIn() {

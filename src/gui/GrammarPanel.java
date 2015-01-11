@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 
 public class GrammarPanel extends JPanel {
-	private JLabel lblMessage;
+	private JTextArea lblMessage;
 	private JTextArea textFieldGrammar;
 	private Component horizontalStrut;
 	//private boolean parserInit = false;
@@ -44,6 +44,7 @@ public class GrammarPanel extends JPanel {
 	private ParseManager pm;
 	private JScrollPane scrollPane;
 	private JLabel lblResult;
+	private JScrollPane scrollPane_1;
 	
 	public void setManagers( GuiManager guimanager, ParseManager parseManager )
 	{
@@ -57,9 +58,9 @@ public class GrammarPanel extends JPanel {
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{252, 0};
-		gridBagLayout.rowHeights = new int[]{287, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{287, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		scrollPane = new JScrollPane();
@@ -72,6 +73,7 @@ public class GrammarPanel extends JPanel {
 		add(scrollPane, gbc_scrollPane);
 		
 		textFieldGrammar = new JTextArea();
+		textFieldGrammar.setRows(15);
 		textFieldGrammar.setLineWrap(true);
 		scrollPane.setViewportView(textFieldGrammar);
 		textFieldGrammar.setColumns(10);
@@ -117,19 +119,26 @@ public class GrammarPanel extends JPanel {
 		gbc_lblResult.gridy = 3;
 		add(lblResult, gbc_lblResult);
 		
-		lblMessage = new JLabel();
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 4;
+		add(scrollPane_1, gbc_scrollPane_1);
+		
+		lblMessage = new JTextArea();
+		lblMessage.setColumns(10);
+		lblMessage.setRows(5);
+		lblMessage.setEditable(false);
+		lblMessage.setLineWrap(true);
+		scrollPane_1.setViewportView(lblMessage);
 		lblMessage.setText("suca");
 		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 11));
-		GridBagConstraints gbc_lblMessage = new GridBagConstraints();
-		gbc_lblMessage.gridheight = 4;
-		gbc_lblMessage.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblMessage.gridx = 0;
-		gbc_lblMessage.gridy = 4;
-		add(lblMessage, gbc_lblMessage);
 
 	}
 
-	public JLabel getTextFieldResult() {
+	public JTextArea getTextFieldResult() {
 		return lblMessage;
 	}
 
