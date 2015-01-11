@@ -58,7 +58,7 @@ public class GrammarPanel extends JPanel {
 	public GrammarPanel(  ) 
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {100, 100, 0};
+		gridBagLayout.columnWidths = new int[] {100, 110, 0};
 		gridBagLayout.rowHeights = new int[]{287, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
@@ -99,6 +99,7 @@ public class GrammarPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnParse = new GridBagConstraints();
+		gbc_btnParse.anchor = GridBagConstraints.WEST;
 		gbc_btnParse.insets = new Insets(0, 0, 5, 5);
 		gbc_btnParse.gridx = 0;
 		gbc_btnParse.gridy = 1;
@@ -106,6 +107,7 @@ public class GrammarPanel extends JPanel {
 		
 		btnShowTree = new JButton("Show Tree");
 		GridBagConstraints gbc_btnShowTree = new GridBagConstraints();
+		gbc_btnShowTree.anchor = GridBagConstraints.WEST;
 		gbc_btnShowTree.insets = new Insets(0, 0, 5, 0);
 		gbc_btnShowTree.gridx = 1;
 		gbc_btnShowTree.gridy = 1;

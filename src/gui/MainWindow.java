@@ -24,6 +24,7 @@ import javax.swing.Box;
 import javax.swing.ScrollPaneConstants;
 
 import parser.ParseManager;
+import java.awt.Dimension;
 
 
 public class MainWindow 
@@ -135,6 +136,7 @@ public class MainWindow
 		frmCardCreator.getContentPane().add(cardpanel, gbc_cardpanel);
 		
 		JScrollPane scrollPaneDx = new JScrollPane();
+		scrollPaneDx.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GridBagConstraints gbc_scrollPaneDx = new GridBagConstraints();
 		gbc_scrollPaneDx.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneDx.gridx = 5;
@@ -142,10 +144,12 @@ public class MainWindow
 		frmCardCreator.getContentPane().add(scrollPaneDx, gbc_scrollPaneDx);
 		
 		GrammarPanel rightpanel = new GrammarPanel();
+		rightpanel.getTextFieldGrammar().setMinimumSize(new Dimension(110, 22));
 		guimanager.setGrammarPanel( rightpanel );
 		rightpanel.setManagers(guimanager, parseManager);
 		GridBagLayout gridBagLayout_1 = (GridBagLayout) rightpanel.getLayout();
-		gridBagLayout_1.columnWidths = new int[]{246};
+		gridBagLayout_1.rowHeights = new int[]{322, 36, 39, 0, 90};
+		gridBagLayout_1.columnWidths = new int[]{151};
 		scrollPaneDx.setViewportView(rightpanel);
 	}
 }
