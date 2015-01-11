@@ -1,7 +1,8 @@
 package card;
 
-public class Spell extends Card {
+public class Spell extends Card
+{
 
-	public Spell() {
-	}
+	public Spell()
+	{}
 }

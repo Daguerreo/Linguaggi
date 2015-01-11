@@ -1,5 +1,6 @@
 package card;
 
-public class CardManager {
+public class CardManager 
+{
 
 }

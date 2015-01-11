@@ -1,5 +1,6 @@
 package card;
 
-public class Subtype {
+public class Subtype 
+{
 
 }
