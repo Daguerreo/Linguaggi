@@ -6,240 +6,259 @@ import java.util.*;
 
 public class DepthFirstVoidArguVisitor<A> implements IVoidArguVisitor<A> {
 
+	@Override
+	public void visit(final NodeChoice n, final A argu) {
+		n.choice.accept(this, argu);
+		return;
+	}
 
-  public void visit(final NodeChoice n, final A argu) {
-    n.choice.accept(this, argu);
-    return;
-  }
+	@Override
+	public void visit(final NodeList n, final A argu) {
+		for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+			e.next().accept(this, argu);
+		}
+		return;
+	}
 
-  public void visit(final NodeList n, final A argu) {
-    for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-      e.next().accept(this, argu);
-    }
-    return;
-  }
+	@Override
+	public void visit(final NodeListOptional n, final A argu) {
+		if (n.present()) {
+			for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+				e.next().accept(this, argu);
+			}
+			return;
+		} else
+			return;
+	}
 
-  public void visit(final NodeListOptional n, final A argu) {
-    if (n.present()) {
-      for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-        e.next().accept(this, argu);
-        }
-      return;
-    } else
-      return;
-  }
+	@Override
+	public void visit(final NodeOptional n, final A argu) {
+		if (n.present()) {
+			n.node.accept(this, argu);
+			return;
+		} else
+			return;
+	}
 
-  public void visit(final NodeOptional n, final A argu) {
-    if (n.present()) {
-      n.node.accept(this, argu);
-      return;
-    } else
-      return;
-  }
+	@Override
+	public void visit(final NodeSequence n, final A argu) {
+		for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+			e.next().accept(this, argu);
+		}
+		return;
+	}
 
-  public void visit(final NodeSequence n, final A argu) {
-    for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-      e.next().accept(this, argu);
-    }
-    return;
-  }
+	@Override
+	public void visit(final NodeTCF n, final A argu) {
+		@SuppressWarnings("unused")
+		final String tkIm = n.tokenImage;
+		return;
+	}
 
-  public void visit(final NodeTCF n, final A argu) {
-    @SuppressWarnings("unused")
-    final String tkIm = n.tokenImage;
-    return;
-  }
+	@Override
+	public void visit(final NodeToken n, final A argu) {
+		@SuppressWarnings("unused")
+		final String tkIm = n.tokenImage;
+		return;
+	}
 
-  public void visit(final NodeToken n, final A argu) {
-    @SuppressWarnings("unused")
-    final String tkIm = n.tokenImage;
-    return;
-  }
+	@Override
+	public void visit(final Scope n, final A argu) {
+		// f0 -> . %0 Spell()
+		// .. .. | %1 Permanent()
+		// .. .. | %2 Creature()
+		n.f0.accept(this, argu);
+	}
 
-  public void visit(final Scope n, final A argu) {
-    // f0 -> . %0 Spell()
-    // .. .. | %1 Permanent()
-    // .. .. | %2 Creature()
-    n.f0.accept(this, argu);
-  }
+	@Override
+	public void visit(final Spell n, final A argu) {
+		// f0 -> <SPELL>
+		n.f0.accept(this, argu);
+		// f1 -> Name()
+		n.f1.accept(this, argu);
+		// f2 -> <LBLOCK>
+		n.f2.accept(this, argu);
+		// f3 -> Element()
+		n.f3.accept(this, argu);
+		// f4 -> Cost()
+		n.f4.accept(this, argu);
+		// f5 -> Subtype()
+		n.f5.accept(this, argu);
+		// f6 -> Text()
+		n.f6.accept(this, argu);
+		// f7 -> <RBLOCK>
+		n.f7.accept(this, argu);
+	}
 
-  public void visit(final Spell n, final A argu) {
-    // f0 -> <SPELL>
-    n.f0.accept(this, argu);
-    // f1 -> Name()
-    n.f1.accept(this, argu);
-    // f2 -> <LBLOCK>
-    n.f2.accept(this, argu);
-    // f3 -> Element()
-    n.f3.accept(this, argu);
-    // f4 -> Cost()
-    n.f4.accept(this, argu);
-    // f5 -> Subtype()
-    n.f5.accept(this, argu);
-    // f6 -> Text()
-    n.f6.accept(this, argu);
-    // f7 -> <RBLOCK>
-    n.f7.accept(this, argu);
-  }
+	@Override
+	public void visit(final Permanent n, final A argu) {
+		// f0 -> <PERMANENT>
+		n.f0.accept(this, argu);
+		// f1 -> Name()
+		n.f1.accept(this, argu);
+		// f2 -> <LBLOCK>
+		n.f2.accept(this, argu);
+		// f3 -> Element()
+		n.f3.accept(this, argu);
+		// f4 -> Cost()
+		n.f4.accept(this, argu);
+		// f5 -> Subtype()
+		n.f5.accept(this, argu);
+		// f6 -> Text()
+		n.f6.accept(this, argu);
+		// f7 -> <RBLOCK>
+		n.f7.accept(this, argu);
+	}
 
-  public void visit(final Permanent n, final A argu) {
-    // f0 -> <PERMANENT>
-    n.f0.accept(this, argu);
-    // f1 -> Name()
-    n.f1.accept(this, argu);
-    // f2 -> <LBLOCK>
-    n.f2.accept(this, argu);
-    // f3 -> Element()
-    n.f3.accept(this, argu);
-    // f4 -> Cost()
-    n.f4.accept(this, argu);
-    // f5 -> Subtype()
-    n.f5.accept(this, argu);
-    // f6 -> Text()
-    n.f6.accept(this, argu);
-    // f7 -> <RBLOCK>
-    n.f7.accept(this, argu);
-  }
+	@Override
+	public void visit(final Creature n, final A argu) {
+		// f0 -> <CREATURE>
+		n.f0.accept(this, argu);
+		// f1 -> Name()
+		n.f1.accept(this, argu);
+		// f2 -> <LBLOCK>
+		n.f2.accept(this, argu);
+		// f3 -> Element()
+		n.f3.accept(this, argu);
+		// f4 -> Cost()
+		n.f4.accept(this, argu);
+		// f5 -> Subtype()
+		n.f5.accept(this, argu);
+		// f6 -> Stat()
+		n.f6.accept(this, argu);
+		// f7 -> Text()
+		n.f7.accept(this, argu);
+		// f8 -> <RBLOCK>
+		n.f8.accept(this, argu);
+	}
 
-  public void visit(final Creature n, final A argu) {
-    // f0 -> <CREATURE>
-    n.f0.accept(this, argu);
-    // f1 -> Name()
-    n.f1.accept(this, argu);
-    // f2 -> <LBLOCK>
-    n.f2.accept(this, argu);
-    // f3 -> Element()
-    n.f3.accept(this, argu);
-    // f4 -> Cost()
-    n.f4.accept(this, argu);
-    // f5 -> Subtype()
-    n.f5.accept(this, argu);
-    // f6 -> Stat()
-    n.f6.accept(this, argu);
-    // f7 -> Text()
-    n.f7.accept(this, argu);
-    // f8 -> <RBLOCK>
-    n.f8.accept(this, argu);
-  }
+	@Override
+	public void visit(final Name n, final A argu) {
+		// f0 -> <WORD>
+		n.f0.accept(this, argu);
+		// f1 -> ( %0 <WORD>
+		// .. .. | %1 <PUNCT> )*
+		n.f1.accept(this, argu);
+	}
 
-  public void visit(final Name n, final A argu) {
-    // f0 -> <WORD>
-    n.f0.accept(this, argu);
-    // f1 -> ( %0 <WORD>
-    // .. .. | %1 <PUNCT> )*
-    n.f1.accept(this, argu);
-  }
+	@Override
+	public void visit(final Element n, final A argu) {
+		// f0 -> <ELEMENT>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> <ELEMENTS>
+		n.f2.accept(this, argu);
+		// f3 -> <RPAR>
+		n.f3.accept(this, argu);
+	}
 
-  public void visit(final Element n, final A argu) {
-    // f0 -> <ELEMENT>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> <ELEMENTS>
-    n.f2.accept(this, argu);
-    // f3 -> <RPAR>
-    n.f3.accept(this, argu);
-  }
+	@Override
+	public void visit(final Cost n, final A argu) {
+		// f0 -> <COST>
+		n.f0.accept(this, argu);
+		// f1 -> ( %0 Mono()
+		// .. .. | %1 Duo()
+		// .. .. | %2 Trio() )
+		n.f1.accept(this, argu);
+	}
 
-  public void visit(final Cost n, final A argu) {
-    // f0 -> <COST>
-    n.f0.accept(this, argu);
-    // f1 -> ( %0 Mono()
-    // .. .. | %1 Duo()
-    // .. .. | %2 Trio() )
-    n.f1.accept(this, argu);
-  }
+	@Override
+	public void visit(final Mono n, final A argu) {
+		// f0 -> <MONO>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> <NUMBER>
+		n.f2.accept(this, argu);
+		// f3 -> <ELEMENTS>
+		n.f3.accept(this, argu);
+		// f4 -> <RPAR>
+		n.f4.accept(this, argu);
+	}
 
-  public void visit(final Mono n, final A argu) {
-    // f0 -> <MONO>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> <NUMBER>
-    n.f2.accept(this, argu);
-    // f3 -> <ELEMENTS>
-    n.f3.accept(this, argu);
-    // f4 -> <RPAR>
-    n.f4.accept(this, argu);
-  }
+	@Override
+	public void visit(final Duo n, final A argu) {
+		// f0 -> <DUO>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> <NUMBER>
+		n.f2.accept(this, argu);
+		// f3 -> <ELEMENTS>
+		n.f3.accept(this, argu);
+		// f4 -> <NUMBER>
+		n.f4.accept(this, argu);
+		// f5 -> <ELEMENTS>
+		n.f5.accept(this, argu);
+		// f6 -> <RPAR>
+		n.f6.accept(this, argu);
+	}
 
-  public void visit(final Duo n, final A argu) {
-    // f0 -> <DUO>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> <NUMBER>
-    n.f2.accept(this, argu);
-    // f3 -> <ELEMENTS>
-    n.f3.accept(this, argu);
-    // f4 -> <NUMBER>
-    n.f4.accept(this, argu);
-    // f5 -> <ELEMENTS>
-    n.f5.accept(this, argu);
-    // f6 -> <RPAR>
-    n.f6.accept(this, argu);
-  }
+	@Override
+	public void visit(final Trio n, final A argu) {
+		// f0 -> <TRIO>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> <NUMBER>
+		n.f2.accept(this, argu);
+		// f3 -> <ELEMENTS>
+		n.f3.accept(this, argu);
+		// f4 -> <NUMBER>
+		n.f4.accept(this, argu);
+		// f5 -> <ELEMENTS>
+		n.f5.accept(this, argu);
+		// f6 -> <NUMBER>
+		n.f6.accept(this, argu);
+		// f7 -> <ELEMENTS>
+		n.f7.accept(this, argu);
+		// f8 -> <RPAR>
+		n.f8.accept(this, argu);
+	}
 
-  public void visit(final Trio n, final A argu) {
-    // f0 -> <TRIO>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> <NUMBER>
-    n.f2.accept(this, argu);
-    // f3 -> <ELEMENTS>
-    n.f3.accept(this, argu);
-    // f4 -> <NUMBER>
-    n.f4.accept(this, argu);
-    // f5 -> <ELEMENTS>
-    n.f5.accept(this, argu);
-    // f6 -> <NUMBER>
-    n.f6.accept(this, argu);
-    // f7 -> <ELEMENTS>
-    n.f7.accept(this, argu);
-    // f8 -> <RPAR>
-    n.f8.accept(this, argu);
-  }
+	@Override
+	public void visit(final Subtype n, final A argu) {
+		// f0 -> <SUBTYPE>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> ( <WORD> )+
+		n.f2.accept(this, argu);
+		// f3 -> <RPAR>
+		n.f3.accept(this, argu);
+	}
 
-  public void visit(final Subtype n, final A argu) {
-    // f0 -> <SUBTYPE>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> ( <WORD> )+
-    n.f2.accept(this, argu);
-    // f3 -> <RPAR>
-    n.f3.accept(this, argu);
-  }
+	@Override
+	public void visit(final Text n, final A argu) {
+		// f0 -> <TEXT>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> ( %0 <WORD>
+		// .. .. | %1 <ELEMENTS>
+		// .. .. | %2 <PUNCT>
+		// .. .. | %3 <MATH>
+		// .. .. | %4 <NUMBER> )*
+		n.f2.accept(this, argu);
+		// f3 -> <RPAR>
+		n.f3.accept(this, argu);
+	}
 
-  public void visit(final Text n, final A argu) {
-    // f0 -> <TEXT>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> ( %0 <WORD>
-    // .. .. | %1 <ELEMENTS>
-    // .. .. | %2 <PUNCT>
-    // .. .. | %3 <MATH>
-    // .. .. | %4 <NUMBER> )*
-    n.f2.accept(this, argu);
-    // f3 -> <RPAR>
-    n.f3.accept(this, argu);
-  }
-
-  public void visit(final Stat n, final A argu) {
-    // f0 -> <STAT>
-    n.f0.accept(this, argu);
-    // f1 -> <LPAR>
-    n.f1.accept(this, argu);
-    // f2 -> <NUMBER>
-    n.f2.accept(this, argu);
-    // f3 -> <NUMBER>
-    n.f3.accept(this, argu);
-    // f4 -> <NUMBER>
-    n.f4.accept(this, argu);
-    // f5 -> <RPAR>
-    n.f5.accept(this, argu);
-  }
+	@Override
+	public void visit(final Stat n, final A argu) {
+		// f0 -> <STAT>
+		n.f0.accept(this, argu);
+		// f1 -> <LPAR>
+		n.f1.accept(this, argu);
+		// f2 -> <NUMBER>
+		n.f2.accept(this, argu);
+		// f3 -> <NUMBER>
+		n.f3.accept(this, argu);
+		// f4 -> <NUMBER>
+		n.f4.accept(this, argu);
+		// f5 -> <RPAR>
+		n.f5.accept(this, argu);
+	}
 
 }

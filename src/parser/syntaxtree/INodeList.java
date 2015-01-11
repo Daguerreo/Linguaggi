@@ -8,20 +8,24 @@ import parser.visitor.IVoidVisitor;
 
 public interface INodeList extends INode {
 
-  public void addNode(final INode n);
+	public void addNode(final INode n);
 
-  public INode elementAt(int i);
+	public INode elementAt(int i);
 
-  public java.util.Iterator<INode> elements();
+	public java.util.Iterator<INode> elements();
 
-  public int size();
+	public int size();
 
-  public <R, A> R accept(final IRetArguVisitor<R, A> vis, final A argu);
+	@Override
+	public <R, A> R accept(final IRetArguVisitor<R, A> vis, final A argu);
 
-  public <R> R accept(final IRetVisitor<R> vis);
+	@Override
+	public <R> R accept(final IRetVisitor<R> vis);
 
-  public <A> void accept(final IVoidArguVisitor<A> vis, final A argu);
+	@Override
+	public <A> void accept(final IVoidArguVisitor<A> vis, final A argu);
 
-  public void accept(final IVoidVisitor vis);
+	@Override
+	public void accept(final IVoidVisitor vis);
 
 }

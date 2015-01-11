@@ -6,281 +6,321 @@ import java.util.*;
 
 public class DepthFirstRetVisitor<R> implements IRetVisitor<R> {
 
+	@Override
+	public R visit(final NodeChoice n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		final R nRes = n.choice.accept(this);
+		return nRes;
+	}
 
-  public R visit(final NodeChoice n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    final R nRes = n.choice.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final NodeList n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		R nRes = null;
+		for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+			@SuppressWarnings("unused")
+			final R sRes = e.next().accept(this);
+		}
+		return nRes;
+	}
 
-  public R visit(final NodeList n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    R nRes = null;
-    for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-      @SuppressWarnings("unused")
-      final R sRes = e.next().accept(this);
-    }
-    return nRes;
-  }
+	@Override
+	public R visit(final NodeListOptional n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		if (n.present()) {
+			R nRes = null;
+			for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+				@SuppressWarnings("unused")
+				R sRes = e.next().accept(this);
+			}
+			return nRes;
+		} else
+			return null;
+	}
 
-  public R visit(final NodeListOptional n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    if (n.present()) {
-      R nRes = null;
-      for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-        @SuppressWarnings("unused")
-        R sRes = e.next().accept(this);
-        }
-      return nRes;
-    } else
-      return null;
-  }
+	@Override
+	public R visit(final NodeOptional n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		if (n.present()) {
+			final R nRes = n.node.accept(this);
+			return nRes;
+		} else
+			return null;
+	}
 
-  public R visit(final NodeOptional n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    if (n.present()) {
-      final R nRes = n.node.accept(this);
-      return nRes;
-    } else
-      return null;
-  }
+	@Override
+	public R visit(final NodeSequence n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		R nRes = null;
+		for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+			@SuppressWarnings("unused")
+			R subRet = e.next().accept(this);
+		}
+		return nRes;
+	}
 
-  public R visit(final NodeSequence n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    R nRes = null;
-    for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-      @SuppressWarnings("unused")
-      R subRet = e.next().accept(this);
-    }
-    return nRes;
-  }
+	@Override
+	public R visit(final NodeTCF n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		R nRes = null;
+		@SuppressWarnings("unused")
+		final String tkIm = n.tokenImage;
+		return nRes;
+	}
 
-  public R visit(final NodeTCF n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    R nRes = null;
-    @SuppressWarnings("unused")
-    final String tkIm = n.tokenImage;
-    return nRes;
-  }
+	@Override
+	public R visit(final NodeToken n) {
+		/*
+		 * You have to adapt which data is returned (result variables below are
+		 * just examples)
+		 */
+		R nRes = null;
+		@SuppressWarnings("unused")
+		final String tkIm = n.tokenImage;
+		return nRes;
+	}
 
-  public R visit(final NodeToken n) {
-    /* You have to adapt which data is returned (result variables below are just examples) */
-    R nRes = null;
-    @SuppressWarnings("unused")
-    final String tkIm = n.tokenImage;
-    return nRes;
-  }
+	@Override
+	public R visit(final Scope n) {
+		R nRes = null;
+		// f0 -> . %0 Spell()
+		// .. .. | %1 Permanent()
+		// .. .. | %2 Creature()
+		n.f0.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Scope n) {
-    R nRes = null;
-    // f0 -> . %0 Spell()
-    // .. .. | %1 Permanent()
-    // .. .. | %2 Creature()
-    n.f0.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Spell n) {
+		R nRes = null;
+		// f0 -> <SPELL>
+		n.f0.accept(this);
+		// f1 -> Name()
+		n.f1.accept(this);
+		// f2 -> <LBLOCK>
+		n.f2.accept(this);
+		// f3 -> Element()
+		n.f3.accept(this);
+		// f4 -> Cost()
+		n.f4.accept(this);
+		// f5 -> Subtype()
+		n.f5.accept(this);
+		// f6 -> Text()
+		n.f6.accept(this);
+		// f7 -> <RBLOCK>
+		n.f7.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Spell n) {
-    R nRes = null;
-    // f0 -> <SPELL>
-    n.f0.accept(this);
-    // f1 -> Name()
-    n.f1.accept(this);
-    // f2 -> <LBLOCK>
-    n.f2.accept(this);
-    // f3 -> Element()
-    n.f3.accept(this);
-    // f4 -> Cost()
-    n.f4.accept(this);
-    // f5 -> Subtype()
-    n.f5.accept(this);
-    // f6 -> Text()
-    n.f6.accept(this);
-    // f7 -> <RBLOCK>
-    n.f7.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Permanent n) {
+		R nRes = null;
+		// f0 -> <PERMANENT>
+		n.f0.accept(this);
+		// f1 -> Name()
+		n.f1.accept(this);
+		// f2 -> <LBLOCK>
+		n.f2.accept(this);
+		// f3 -> Element()
+		n.f3.accept(this);
+		// f4 -> Cost()
+		n.f4.accept(this);
+		// f5 -> Subtype()
+		n.f5.accept(this);
+		// f6 -> Text()
+		n.f6.accept(this);
+		// f7 -> <RBLOCK>
+		n.f7.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Permanent n) {
-    R nRes = null;
-    // f0 -> <PERMANENT>
-    n.f0.accept(this);
-    // f1 -> Name()
-    n.f1.accept(this);
-    // f2 -> <LBLOCK>
-    n.f2.accept(this);
-    // f3 -> Element()
-    n.f3.accept(this);
-    // f4 -> Cost()
-    n.f4.accept(this);
-    // f5 -> Subtype()
-    n.f5.accept(this);
-    // f6 -> Text()
-    n.f6.accept(this);
-    // f7 -> <RBLOCK>
-    n.f7.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Creature n) {
+		R nRes = null;
+		// f0 -> <CREATURE>
+		n.f0.accept(this);
+		// f1 -> Name()
+		n.f1.accept(this);
+		// f2 -> <LBLOCK>
+		n.f2.accept(this);
+		// f3 -> Element()
+		n.f3.accept(this);
+		// f4 -> Cost()
+		n.f4.accept(this);
+		// f5 -> Subtype()
+		n.f5.accept(this);
+		// f6 -> Stat()
+		n.f6.accept(this);
+		// f7 -> Text()
+		n.f7.accept(this);
+		// f8 -> <RBLOCK>
+		n.f8.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Creature n) {
-    R nRes = null;
-    // f0 -> <CREATURE>
-    n.f0.accept(this);
-    // f1 -> Name()
-    n.f1.accept(this);
-    // f2 -> <LBLOCK>
-    n.f2.accept(this);
-    // f3 -> Element()
-    n.f3.accept(this);
-    // f4 -> Cost()
-    n.f4.accept(this);
-    // f5 -> Subtype()
-    n.f5.accept(this);
-    // f6 -> Stat()
-    n.f6.accept(this);
-    // f7 -> Text()
-    n.f7.accept(this);
-    // f8 -> <RBLOCK>
-    n.f8.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Name n) {
+		R nRes = null;
+		// f0 -> <WORD>
+		n.f0.accept(this);
+		// f1 -> ( %0 <WORD>
+		// .. .. | %1 <PUNCT> )*
+		n.f1.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Name n) {
-    R nRes = null;
-    // f0 -> <WORD>
-    n.f0.accept(this);
-    // f1 -> ( %0 <WORD>
-    // .. .. | %1 <PUNCT> )*
-    n.f1.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Element n) {
+		R nRes = null;
+		// f0 -> <ELEMENT>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> <ELEMENTS>
+		n.f2.accept(this);
+		// f3 -> <RPAR>
+		n.f3.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Element n) {
-    R nRes = null;
-    // f0 -> <ELEMENT>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> <ELEMENTS>
-    n.f2.accept(this);
-    // f3 -> <RPAR>
-    n.f3.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Cost n) {
+		R nRes = null;
+		// f0 -> <COST>
+		n.f0.accept(this);
+		// f1 -> ( %0 Mono()
+		// .. .. | %1 Duo()
+		// .. .. | %2 Trio() )
+		n.f1.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Cost n) {
-    R nRes = null;
-    // f0 -> <COST>
-    n.f0.accept(this);
-    // f1 -> ( %0 Mono()
-    // .. .. | %1 Duo()
-    // .. .. | %2 Trio() )
-    n.f1.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Mono n) {
+		R nRes = null;
+		// f0 -> <MONO>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> <NUMBER>
+		n.f2.accept(this);
+		// f3 -> <ELEMENTS>
+		n.f3.accept(this);
+		// f4 -> <RPAR>
+		n.f4.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Mono n) {
-    R nRes = null;
-    // f0 -> <MONO>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> <NUMBER>
-    n.f2.accept(this);
-    // f3 -> <ELEMENTS>
-    n.f3.accept(this);
-    // f4 -> <RPAR>
-    n.f4.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Duo n) {
+		R nRes = null;
+		// f0 -> <DUO>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> <NUMBER>
+		n.f2.accept(this);
+		// f3 -> <ELEMENTS>
+		n.f3.accept(this);
+		// f4 -> <NUMBER>
+		n.f4.accept(this);
+		// f5 -> <ELEMENTS>
+		n.f5.accept(this);
+		// f6 -> <RPAR>
+		n.f6.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Duo n) {
-    R nRes = null;
-    // f0 -> <DUO>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> <NUMBER>
-    n.f2.accept(this);
-    // f3 -> <ELEMENTS>
-    n.f3.accept(this);
-    // f4 -> <NUMBER>
-    n.f4.accept(this);
-    // f5 -> <ELEMENTS>
-    n.f5.accept(this);
-    // f6 -> <RPAR>
-    n.f6.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Trio n) {
+		R nRes = null;
+		// f0 -> <TRIO>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> <NUMBER>
+		n.f2.accept(this);
+		// f3 -> <ELEMENTS>
+		n.f3.accept(this);
+		// f4 -> <NUMBER>
+		n.f4.accept(this);
+		// f5 -> <ELEMENTS>
+		n.f5.accept(this);
+		// f6 -> <NUMBER>
+		n.f6.accept(this);
+		// f7 -> <ELEMENTS>
+		n.f7.accept(this);
+		// f8 -> <RPAR>
+		n.f8.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Trio n) {
-    R nRes = null;
-    // f0 -> <TRIO>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> <NUMBER>
-    n.f2.accept(this);
-    // f3 -> <ELEMENTS>
-    n.f3.accept(this);
-    // f4 -> <NUMBER>
-    n.f4.accept(this);
-    // f5 -> <ELEMENTS>
-    n.f5.accept(this);
-    // f6 -> <NUMBER>
-    n.f6.accept(this);
-    // f7 -> <ELEMENTS>
-    n.f7.accept(this);
-    // f8 -> <RPAR>
-    n.f8.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Subtype n) {
+		R nRes = null;
+		// f0 -> <SUBTYPE>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> ( <WORD> )+
+		n.f2.accept(this);
+		// f3 -> <RPAR>
+		n.f3.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Subtype n) {
-    R nRes = null;
-    // f0 -> <SUBTYPE>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> ( <WORD> )+
-    n.f2.accept(this);
-    // f3 -> <RPAR>
-    n.f3.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Text n) {
+		R nRes = null;
+		// f0 -> <TEXT>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> ( %0 <WORD>
+		// .. .. | %1 <ELEMENTS>
+		// .. .. | %2 <PUNCT>
+		// .. .. | %3 <MATH>
+		// .. .. | %4 <NUMBER> )*
+		n.f2.accept(this);
+		// f3 -> <RPAR>
+		n.f3.accept(this);
+		return nRes;
+	}
 
-  public R visit(final Text n) {
-    R nRes = null;
-    // f0 -> <TEXT>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> ( %0 <WORD>
-    // .. .. | %1 <ELEMENTS>
-    // .. .. | %2 <PUNCT>
-    // .. .. | %3 <MATH>
-    // .. .. | %4 <NUMBER> )*
-    n.f2.accept(this);
-    // f3 -> <RPAR>
-    n.f3.accept(this);
-    return nRes;
-  }
-
-  public R visit(final Stat n) {
-    R nRes = null;
-    // f0 -> <STAT>
-    n.f0.accept(this);
-    // f1 -> <LPAR>
-    n.f1.accept(this);
-    // f2 -> <NUMBER>
-    n.f2.accept(this);
-    // f3 -> <NUMBER>
-    n.f3.accept(this);
-    // f4 -> <NUMBER>
-    n.f4.accept(this);
-    // f5 -> <RPAR>
-    n.f5.accept(this);
-    return nRes;
-  }
+	@Override
+	public R visit(final Stat n) {
+		R nRes = null;
+		// f0 -> <STAT>
+		n.f0.accept(this);
+		// f1 -> <LPAR>
+		n.f1.accept(this);
+		// f2 -> <NUMBER>
+		n.f2.accept(this);
+		// f3 -> <NUMBER>
+		n.f3.accept(this);
+		// f4 -> <NUMBER>
+		n.f4.accept(this);
+		// f5 -> <RPAR>
+		n.f5.accept(this);
+		return nRes;
+	}
 
 }

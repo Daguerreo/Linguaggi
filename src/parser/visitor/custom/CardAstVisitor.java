@@ -1,7 +1,5 @@
 package parser.visitor.custom;
 
-import gui.GuiManager;
-
 import java.util.Iterator;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -29,10 +27,9 @@ import parser.syntaxtree.Text;
 import parser.syntaxtree.Trio;
 import parser.visitor.IVoidVisitor;
 
-public class CardAstVisitor implements IVoidVisitor 
-{
+public class CardAstVisitor implements IVoidVisitor {
 	private DefaultMutableTreeNode tree;
-	
+
 	public DefaultMutableTreeNode getTree() {
 		return tree;
 	}
@@ -40,31 +37,33 @@ public class CardAstVisitor implements IVoidVisitor
 	public void setTree(DefaultMutableTreeNode tree) {
 		this.tree = tree;
 	}
-	
+
+	@Override
 	public void visit(final NodeChoice n) {
-		    n.choice.accept(this);
-		    return;
+		n.choice.accept(this);
+		return;
 	}
 
+	@Override
 	public void visit(final NodeList n) {
-	   for (final Iterator<INode> e = n.elements(); e.hasNext();) {
-	     e.next().accept(this);
-	   }
-	   return;
+		for (final Iterator<INode> e = n.elements(); e.hasNext();) {
+			e.next().accept(this);
+		}
+		return;
 	}
 
+	@Override
 	public void visit(final NodeListOptional n) {
-		if (n.present()) 
-		{
-			for (final Iterator<INode> e = n.elements(); e.hasNext();) 
-			{
+		if (n.present()) {
+			for (final Iterator<INode> e = n.elements(); e.hasNext();) {
 				e.next().accept(this);
 			}
 			return;
-		 } else
-		      return;
+		} else
+			return;
 	}
 
+	@Override
 	public void visit(final NodeOptional n) {
 		if (n.present()) {
 			n.node.accept(this);
@@ -73,6 +72,7 @@ public class CardAstVisitor implements IVoidVisitor
 			return;
 	}
 
+	@Override
 	public void visit(final NodeSequence n) {
 		for (final Iterator<INode> e = n.elements(); e.hasNext();) {
 			e.next().accept(this);
@@ -80,28 +80,32 @@ public class CardAstVisitor implements IVoidVisitor
 		return;
 	}
 
+	@Override
 	public void visit(final NodeTCF n) {
 		@SuppressWarnings("unused")
 		final String tkIm = n.tokenImage;
 		return;
 	}
 
+	@Override
 	public void visit(final NodeToken n) {
-		/* @SuppressWarnings("unused")
-		    final String tkIm = n.tokenImage;
-		    return;*/
+		/*
+		 * @SuppressWarnings("unused") final String tkIm = n.tokenImage; return;
+		 */
 		System.out.println("visit " + n.tokenImage);
-		//outMsg += n.tokenImage + " ";
+		// outMsg += n.tokenImage + " ";
 	}
 
+	@Override
 	public void visit(final Scope n) {
 		tree = new DefaultMutableTreeNode("CARD");
 		// f0 -> . %0 Spell()
 		// .. .. | %1 Permanent()
-	    // .. .. | %2 Creature()
+		// .. .. | %2 Creature()
 		n.f0.accept(this);
 	}
 
+	@Override
 	public void visit(final Spell n) {
 		DefaultMutableTreeNode app = null;
 		tree = new DefaultMutableTreeNode("SPELL");
@@ -130,6 +134,7 @@ public class CardAstVisitor implements IVoidVisitor
 		tree = app;
 	}
 
+	@Override
 	public void visit(final Permanent n) {
 		// f0 -> <PERMANENT>
 		n.f0.accept(this);
@@ -150,6 +155,7 @@ public class CardAstVisitor implements IVoidVisitor
 		tree = new DefaultMutableTreeNode("PERMANENT");
 	}
 
+	@Override
 	public void visit(final Creature n) {
 		// f0 -> <CREATURE>
 		n.f0.accept(this);
@@ -172,18 +178,20 @@ public class CardAstVisitor implements IVoidVisitor
 		tree = new DefaultMutableTreeNode("CREATURE");
 	}
 
+	@Override
 	public void visit(final Name n) {
 		DefaultMutableTreeNode app = tree;
-		
+
 		// f0 -> <WORD>
 		n.f0.accept(this);
 		// f1 -> ( %0 <WORD>
 		// .. .. | %1 <PUNCT> )*
-		n.f1.accept(this); 
+		n.f1.accept(this);
 		app.add(tree);
 		tree = app;
 	}
 
+	@Override
 	public void visit(final Element n) {
 		DefaultMutableTreeNode app = tree;
 		// f0 -> <ELEMENT>
@@ -199,6 +207,7 @@ public class CardAstVisitor implements IVoidVisitor
 		tree = app;
 	}
 
+	@Override
 	public void visit(final Cost n) {
 		DefaultMutableTreeNode app = tree;
 		// f0 -> <COST>
@@ -207,12 +216,13 @@ public class CardAstVisitor implements IVoidVisitor
 		// f1 -> ( %0 Mono()
 		// .. .. | %1 Duo()
 		// .. .. | %2 Trio() )
-	    n.f1.accept(this);
-	    app.add(tree);
-	    
-	    tree = app;
+		n.f1.accept(this);
+		app.add(tree);
+
+		tree = app;
 	}
 
+	@Override
 	public void visit(final Mono n) {
 		DefaultMutableTreeNode app = tree;
 		// f0 -> <MONO>
@@ -227,10 +237,11 @@ public class CardAstVisitor implements IVoidVisitor
 		app.add(tree);
 		// f4 -> <RPAR>
 		n.f4.accept(this);
-		
+
 		tree = app;
 	}
 
+	@Override
 	public void visit(final Duo n) {
 		DefaultMutableTreeNode app = tree;
 		// f0 -> <DUO>
@@ -251,10 +262,11 @@ public class CardAstVisitor implements IVoidVisitor
 		app.add(tree);
 		// f6 -> <RPAR>
 		n.f6.accept(this);
-		
+
 		tree = app;
 	}
 
+	@Override
 	public void visit(final Trio n) {
 		DefaultMutableTreeNode app = tree;
 		// f0 -> <TRIO>
@@ -281,10 +293,11 @@ public class CardAstVisitor implements IVoidVisitor
 		app.add(tree);
 		// f8 -> <RPAR>
 		n.f8.accept(this);
-		
+
 		tree = app;
 	}
-	
+
+	@Override
 	public void visit(final Subtype n) {
 		// f0 -> <SUBTYPE>
 		n.f0.accept(this);
@@ -294,8 +307,9 @@ public class CardAstVisitor implements IVoidVisitor
 		n.f2.accept(this);
 		// f3 -> <RPAR>
 		n.f3.accept(this);
-	}	
+	}
 
+	@Override
 	public void visit(final Text n) {
 		// f0 -> <TEXT>
 		n.f0.accept(this);
@@ -310,7 +324,8 @@ public class CardAstVisitor implements IVoidVisitor
 		// f3 -> <RPAR>
 		n.f3.accept(this);
 	}
-	
+
+	@Override
 	public void visit(final Stat n) {
 		// f0 -> <STAT>
 		n.f0.accept(this);

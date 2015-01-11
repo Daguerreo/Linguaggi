@@ -1,8 +1,7 @@
 package card;
 
-public class Permanent extends Card
-{
+public class Permanent extends Card {
 
-	public Permanent()
-	{}
+	public Permanent() {
+	}
 }

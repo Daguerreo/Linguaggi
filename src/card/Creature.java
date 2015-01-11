@@ -1,13 +1,12 @@
 package card;
 
-public class Creature extends Card
-{
+public class Creature extends Card {
 	private int atk;
 	private int dif;
 	private int range;
-	
-	public Creature()
-	{}
+
+	public Creature() {
+	}
 
 	public int getAtk() {
 		return atk;
@@ -32,7 +31,5 @@ public class Creature extends Card
 	public void setRange(int range) {
 		this.range = range;
 	}
-	
-	
-	
+
 }

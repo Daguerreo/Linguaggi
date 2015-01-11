@@ -1,15 +1,14 @@
 package card;
 
-public class Card 
-{
+public class Card {
 	private String name;
 	private Cost cost;
 	private CardType type;
 	private String subtype;
 	private String text;
 
-	public Card()
-	{}
+	public Card() {
+	}
 
 	public String getName() {
 		return name;
@@ -50,6 +49,5 @@ public class Card
 	public void setText(String text) {
 		this.text = text;
 	}
-	
-	
+
 }
