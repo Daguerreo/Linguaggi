@@ -5,6 +5,7 @@ import gui.GuiManager;
 import java.io.StringReader;
 
 import parser.syntaxtree.*;
+import parser.visitor.custom.CardAstVisitor;
 import parser.visitor.custom.CardCreatorVisitor;
 import parser.visitor.custom.CardSemanticVisitor;
 
@@ -39,11 +40,16 @@ public class ParseManager {
 			Scope start = CardGrammar.Scope();
 			CardCreatorVisitor v = new CardCreatorVisitor();
 			CardSemanticVisitor s = new CardSemanticVisitor();
+			CardAstVisitor a = new CardAstVisitor();
 			v.setGuiManager(gm);
 			start.accept(v);
 			start.accept(s);
+			start.accept(a);
+			
 			// Semantic Error
 			out = s.getOutMsg();
+			// Show AST
+			gm.paintTree(a.getTree());
 		} catch (Exception e) {
 			// Syntax Error
 			out = "Syntax Error: " + e.getMessage();

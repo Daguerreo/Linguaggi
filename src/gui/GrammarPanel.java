@@ -100,8 +100,10 @@ public class GrammarPanel extends JPanel {
 		btnShowTree.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				TreePanel tp = new TreePanel();
+				tp.setManagers(gm, pm);
 				frmTree = new JFrame();
-				frmTree.getContentPane().add(new TreePanel());
+				frmTree.getContentPane().add(tp);
 				frmTree.setSize(400, 400);
 				frmTree.setVisible(true);
 			}

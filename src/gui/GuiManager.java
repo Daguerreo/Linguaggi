@@ -4,6 +4,7 @@ import parser.visitor.custom.CardCreatorVisitor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import card.*;
 
@@ -11,6 +12,8 @@ public class GuiManager {
 	private StatPanel statPanel;
 	private CardPanel cardPanel;
 	private GrammarPanel grammarPanel;
+	private TreePanel treePanel;
+	
 	private CardCreatorVisitor visitor;
 	private boolean parserInit;
 
@@ -34,6 +37,15 @@ public class GuiManager {
 		return visitor;
 	}
 
+	
+	public TreePanel getTreePanel() {
+		return treePanel;
+	}
+
+	public void setTreePanel(TreePanel treePanel) {
+		this.treePanel = treePanel;
+	}
+
 	public void setStatPanel(StatPanel statPanel) {
 		this.statPanel = statPanel;
 	}
@@ -48,6 +60,10 @@ public class GuiManager {
 
 	public void setVisitor(CardCreatorVisitor visitor) {
 		this.visitor = visitor;
+	}
+	
+	public void paintTree( DefaultMutableTreeNode t ){
+		treePanel.repaintTree(t);
 	}
 
 	public boolean isParserInit() {
