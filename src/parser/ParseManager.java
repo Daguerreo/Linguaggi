@@ -7,6 +7,8 @@ import java.io.StringReader;
 
 import parser.syntaxtree.*;
 import parser.visitor.*;
+import parser.visitor.custom.CardCreatorVisitor;
+import parser.visitor.custom.CardSemanticVisitor;
 
 public class ParseManager 
 {
@@ -43,29 +45,31 @@ public class ParseManager
 	{
 		try  
 	    {
-	      Scope start = CardGrammar.Scope();
-	     // DepthFirstVoidVisitor v = new MyVisitor();
-	      CardCreatorVisitor v = new CardCreatorVisitor();
-	      v.setGuiManager(gm);
-	      start.accept(v);
-	      //out = v.getOutMsg();
-	      gm.showResult("lololo");
+			Scope start = CardGrammar.Scope();
+			CardCreatorVisitor v = new CardCreatorVisitor();
+			CardSemanticVisitor s = new CardSemanticVisitor();
+			v.setGuiManager(gm);
+			start.accept(v);
+			start.accept(s);
+			out = s.getOutMsg();
+			gm.showResult("lulululu"); 
 	    }
 	    catch (Exception e)
 	    {
-	      System.out.println("Oops.");
-	      System.out.println(e.getMessage());
+	    	//Syntax Error
+	    	System.out.println(e.getMessage());
+	    	gm.showResult( e.getMessage());
 	    }
 		catch (TokenMgrError e1)
 		{
-			 //System.err.print("Lexical Error: ");
-			//gm.showResult( e1.getMessage());
+			//Lexical Error
+			gm.showResult( e1.getMessage());
 			gm.showResult("bububu");
 			System.err.println(e1.getMessage());
 			 
 		}
 
-	    
+		gm.showResult("lololo"); 
 	}
 
 	public String getIn() {

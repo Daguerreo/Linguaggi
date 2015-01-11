@@ -2,8 +2,8 @@ package gui;
 
 import parser.CardGrammar;
 import parser.syntaxtree.Scope;
-import parser.visitor.CardCreatorVisitor;
 import parser.visitor.DepthFirstVoidVisitor;
+import parser.visitor.custom.CardCreatorVisitor;
 
 import java.awt.Color;
 
