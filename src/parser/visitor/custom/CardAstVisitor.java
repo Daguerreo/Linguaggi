@@ -28,14 +28,17 @@ import parser.syntaxtree.Trio;
 import parser.visitor.IVoidVisitor;
 
 public class CardAstVisitor implements IVoidVisitor {
-	private DefaultMutableTreeNode tree;
+	private DefaultMutableTreeNode root;
+	DefaultMutableTreeNode myParent = null;
+	DefaultMutableTreeNode son = null;
+	private String text = "";
 
 	public DefaultMutableTreeNode getTree() {
-		return tree;
+		return root;
 	}
 
 	public void setTree(DefaultMutableTreeNode tree) {
-		this.tree = tree;
+		this.root = tree;
 	}
 
 	@Override
@@ -93,12 +96,10 @@ public class CardAstVisitor implements IVoidVisitor {
 		 * @SuppressWarnings("unused") final String tkIm = n.tokenImage; return;
 		 */
 		System.out.println("visit " + n.tokenImage);
-		// outMsg += n.tokenImage + " ";
 	}
 
 	@Override
 	public void visit(final Scope n) {
-		tree = new DefaultMutableTreeNode("CARD");
 		// f0 -> . %0 Spell()
 		// .. .. | %1 Permanent()
 		// .. .. | %2 Creature()
@@ -107,194 +108,228 @@ public class CardAstVisitor implements IVoidVisitor {
 
 	@Override
 	public void visit(final Spell n) {
-		DefaultMutableTreeNode app = null;
-		tree = new DefaultMutableTreeNode("SPELL");
-		app = tree;
+		root = new DefaultMutableTreeNode("Spell");
+		myParent = root;
+		
 		// f0 -> <SPELL>
-		n.f0.accept(this);
+		//n.f0.accept(this);
+		
 		// f1 -> Name()
+		son = new DefaultMutableTreeNode("Name");
+		myParent.add(son);
 		n.f1.accept(this);
-		app.add(tree);
-		// f2 -> <LBLOCK>
-		n.f2.accept(this);
+		son.add(new DefaultMutableTreeNode(text));
+		
 		// f3 -> Element()
+		son = new DefaultMutableTreeNode("Element");
+		myParent.add(son);
 		n.f3.accept(this);
-		app.add(tree);
+		son.add(new DefaultMutableTreeNode(text));
+		
 		// f4 -> Cost()
+		son = new DefaultMutableTreeNode("Cost");
+		myParent.add(son);
 		n.f4.accept(this);
-		app.add(tree);
+		
 		// f5 -> Subtype()
+		son = new DefaultMutableTreeNode("Subtype");
+		myParent.add(son);
 		n.f5.accept(this);
-		app.add(tree);
+		
 		// f6 -> Text()
+		son = new DefaultMutableTreeNode("Text");
+		myParent.add(son);
 		n.f6.accept(this);
-		app.add(tree);
-		// f7 -> <RBLOCK>
-		n.f7.accept(this);
-		tree = app;
+		son.add(new DefaultMutableTreeNode(text));
+		
 	}
 
 	@Override
 	public void visit(final Permanent n) {
+		root = new DefaultMutableTreeNode("Permanent");
+		myParent = root;
+		
 		// f0 -> <PERMANENT>
-		n.f0.accept(this);
+		//n.f0.accept(this);
+		
 		// f1 -> Name()
+		son = new DefaultMutableTreeNode("Name");
+		myParent.add(son);
 		n.f1.accept(this);
-		// f2 -> <LBLOCK>
-		n.f2.accept(this);
+		son.add(new DefaultMutableTreeNode(text));
+		
 		// f3 -> Element()
+		son = new DefaultMutableTreeNode("Element");
+		myParent.add(son);
 		n.f3.accept(this);
+		son.add(new DefaultMutableTreeNode(text));
+		
 		// f4 -> Cost()
+		son = new DefaultMutableTreeNode("Cost");
+		myParent.add(son);
 		n.f4.accept(this);
+		
 		// f5 -> Subtype()
+		son = new DefaultMutableTreeNode("Subtype");
+		myParent.add(son);
 		n.f5.accept(this);
+		
 		// f6 -> Text()
+		son = new DefaultMutableTreeNode("Text");
+		myParent.add(son);
 		n.f6.accept(this);
-		// f7 -> <RBLOCK>
-		n.f7.accept(this);
-		tree = new DefaultMutableTreeNode("PERMANENT");
+		son.add(new DefaultMutableTreeNode(text));
 	}
 
 	@Override
 	public void visit(final Creature n) {
+		root = new DefaultMutableTreeNode("Creature");
+		myParent = root;
+		
 		// f0 -> <CREATURE>
-		n.f0.accept(this);
+		//n.f0.accept(this);
+		
 		// f1 -> Name()
+		son = new DefaultMutableTreeNode("Name");
+		myParent.add(son);
 		n.f1.accept(this);
-		// f2 -> <LBLOCK>
-		n.f2.accept(this);
+		son.add(new DefaultMutableTreeNode(text));
+
 		// f3 -> Element()
+		son = new DefaultMutableTreeNode("Element");
+		myParent.add(son);
 		n.f3.accept(this);
+		son.add(new DefaultMutableTreeNode(text));
+		
 		// f4 -> Cost()
+		son = new DefaultMutableTreeNode("Cost");
+		myParent.add(son);
 		n.f4.accept(this);
+		
 		// f5 -> Subtype()
+		son = new DefaultMutableTreeNode("Subtype");
+		myParent.add(son);
 		n.f5.accept(this);
+		
 		// f6 -> Stat()
+		son = new DefaultMutableTreeNode("Stat");
+		myParent.add(son);
 		n.f6.accept(this);
+		
 		// f7 -> Text()
+		son = new DefaultMutableTreeNode("Text");
+		myParent.add(son);
 		n.f7.accept(this);
-		// f8 -> <RBLOCK>
-		n.f8.accept(this);
-		tree = new DefaultMutableTreeNode("CREATURE");
+		son.add(new DefaultMutableTreeNode(text));
+
+
 	}
 
 	@Override
 	public void visit(final Name n) {
-		DefaultMutableTreeNode app = tree;
-
+		text = "";
 		// f0 -> <WORD>
 		n.f0.accept(this);
+		text = n.f0.tokenImage;
+		
 		// f1 -> ( %0 <WORD>
 		// .. .. | %1 <PUNCT> )*
 		n.f1.accept(this);
-		app.add(tree);
-		tree = app;
+		for (int i = 0; i < n.f1.nodes.size(); i++) {
+			NodeToken node = (NodeToken) ((NodeChoice) n.f1.nodes.get(i)).choice;
+			text += " " + node.tokenImage;
+		}
 	}
 
 	@Override
 	public void visit(final Element n) {
-		DefaultMutableTreeNode app = tree;
 		// f0 -> <ELEMENT>
 		n.f0.accept(this);
-		app.add(tree);
-		// f1 -> <LPAR>
-		n.f1.accept(this);
+
 		// f2 -> <ELEMENTS>
 		n.f2.accept(this);
-		app.add(tree);
-		// f3 -> <RPAR>
-		n.f3.accept(this);
-		tree = app;
+		
+		text = n.f2.tokenImage;
 	}
 
 	@Override
 	public void visit(final Cost n) {
-		DefaultMutableTreeNode app = tree;
 		// f0 -> <COST>
 		n.f0.accept(this);
-		app.add(tree);
 		// f1 -> ( %0 Mono()
 		// .. .. | %1 Duo()
 		// .. .. | %2 Trio() )
 		n.f1.accept(this);
-		app.add(tree);
 
-		tree = app;
 	}
 
 	@Override
-	public void visit(final Mono n) {
-		DefaultMutableTreeNode app = tree;
+	public void visit(final Mono n) {	
 		// f0 -> <MONO>
 		n.f0.accept(this);
-		// f1 -> <LPAR>
-		n.f1.accept(this);
+		
 		// f2 -> <NUMBER>
 		n.f2.accept(this);
-		app.add(tree);
 		// f3 -> <ELEMENTS>
 		n.f3.accept(this);
-		app.add(tree);
-		// f4 -> <RPAR>
-		n.f4.accept(this);
 
-		tree = app;
+		myParent = son;
+		son = new DefaultMutableTreeNode(n.f2.tokenImage + " " + n.f3.tokenImage);
+		myParent.add(son);
+		myParent = root;
 	}
 
 	@Override
 	public void visit(final Duo n) {
-		DefaultMutableTreeNode app = tree;
 		// f0 -> <DUO>
 		n.f0.accept(this);
-		// f1 -> <LPAR>
-		n.f1.accept(this);
+		
 		// f2 -> <NUMBER>
 		n.f2.accept(this);
-		app.add(tree);
 		// f3 -> <ELEMENTS>
 		n.f3.accept(this);
-		app.add(tree);
+		
 		// f4 -> <NUMBER>
 		n.f4.accept(this);
-		app.add(tree);
 		// f5 -> <ELEMENTS>
 		n.f5.accept(this);
-		app.add(tree);
-		// f6 -> <RPAR>
-		n.f6.accept(this);
-
-		tree = app;
+		
+		myParent = son;
+		son = new DefaultMutableTreeNode(n.f2.tokenImage + " " + n.f3.tokenImage);
+		myParent.add(son);
+		son = new DefaultMutableTreeNode(n.f4.tokenImage + " " + n.f5.tokenImage);
+		myParent.add(son);
+		myParent = root;
 	}
 
 	@Override
 	public void visit(final Trio n) {
-		DefaultMutableTreeNode app = tree;
 		// f0 -> <TRIO>
 		n.f0.accept(this);
-		// f1 -> <LPAR>
-		n.f1.accept(this);
+
 		// f2 -> <NUMBER>
 		n.f2.accept(this);
-		app.add(tree);
 		// f3 -> <ELEMENTS>
 		n.f3.accept(this);
-		app.add(tree);
+		
 		// f4 -> <NUMBER>
 		n.f4.accept(this);
-		app.add(tree);
 		// f5 -> <ELEMENTS>
 		n.f5.accept(this);
-		app.add(tree);
+		
 		// f6 -> <NUMBER>
 		n.f6.accept(this);
-		app.add(tree);
 		// f7 -> <ELEMENTS>
 		n.f7.accept(this);
-		app.add(tree);
-		// f8 -> <RPAR>
-		n.f8.accept(this);
 
-		tree = app;
+		myParent = son;
+		son = new DefaultMutableTreeNode(n.f2.tokenImage + " " + n.f3.tokenImage);
+		myParent.add(son);
+		son = new DefaultMutableTreeNode(n.f4.tokenImage + " " + n.f5.tokenImage);
+		myParent.add(son);
+		son = new DefaultMutableTreeNode(n.f6.tokenImage + " " + n.f7.tokenImage);
+		myParent.add(son);
+		myParent = root;
 	}
 
 	@Override
@@ -307,37 +342,57 @@ public class CardAstVisitor implements IVoidVisitor {
 		n.f2.accept(this);
 		// f3 -> <RPAR>
 		n.f3.accept(this);
+		
+		myParent = son;
+		
+		for (int i = 0; i < n.f2.nodes.size(); i++) 
+		{
+			NodeToken node = (NodeToken) n.f2.nodes.get(i);
+			son = new DefaultMutableTreeNode( node.tokenImage );
+			myParent.add(son);
+		}
+		
+		myParent = root;
 	}
 
 	@Override
 	public void visit(final Text n) {
 		// f0 -> <TEXT>
 		n.f0.accept(this);
-		// f1 -> <LPAR>
-		n.f1.accept(this);
+
 		// f2 -> ( %0 <WORD>
 		// .. .. | %1 <ELEMENTS>
 		// .. .. | %2 <PUNCT>
 		// .. .. | %3 <MATH>
 		// .. .. | %4 <NUMBER> )*
 		n.f2.accept(this);
-		// f3 -> <RPAR>
-		n.f3.accept(this);
+		
+		text = "";
+		for (int i = 0; i < n.f2.nodes.size(); i++) {
+			NodeToken node = (NodeToken) ((NodeChoice) n.f2.nodes.get(i)).choice;
+			text += " " + node.tokenImage;
+		}
 	}
 
 	@Override
 	public void visit(final Stat n) {
-		// f0 -> <STAT>
-		n.f0.accept(this);
-		// f1 -> <LPAR>
-		n.f1.accept(this);
+		myParent = son;
+		
 		// f2 -> <NUMBER>
 		n.f2.accept(this);
+		son = new DefaultMutableTreeNode("Atk: " + n.f2.tokenImage );
+		myParent.add(son);
+		
 		// f3 -> <NUMBER>
 		n.f3.accept(this);
+		son = new DefaultMutableTreeNode("Dif: " + n.f3.tokenImage );
+		myParent.add(son);
+		
 		// f4 -> <NUMBER>
 		n.f4.accept(this);
-		// f5 -> <RPAR>
-		n.f5.accept(this);
+		son = new DefaultMutableTreeNode("Rng: " + n.f4.tokenImage );
+		myParent.add(son);
+		
+		myParent = root;
 	}
 }

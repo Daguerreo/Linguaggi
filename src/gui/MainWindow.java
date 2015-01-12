@@ -128,8 +128,13 @@ public class MainWindow {
 		gbc_scrollPaneDx.gridx = 5;
 		gbc_scrollPaneDx.gridy = 1;
 		frmCardCreator.getContentPane().add(scrollPaneDx, gbc_scrollPaneDx);
+		
+		TreePanel treePanel = new TreePanel();
+		guimanager.setTreePanel(treePanel);
+		treePanel.setManagers(guimanager, parseManager);
 
 		GrammarPanel rightpanel = new GrammarPanel();
+		rightpanel.setTreePanel(treePanel);
 		rightpanel.getTextFieldGrammar().setMinimumSize(new Dimension(110, 22));
 		guimanager.setGrammarPanel( rightpanel );
 

@@ -36,6 +36,7 @@ public class GrammarPanel extends JPanel {
 
 	private GuiManager gm;
 	private ParseManager pm;
+	private TreePanel treePanel;
 	private JScrollPane scrollPane;
 	private JLabel lblResult;
 	private JScrollPane scrollPane_1;
@@ -48,6 +49,14 @@ public class GrammarPanel extends JPanel {
 
 		pm.setGuiManager(gm);
 	}
+	
+	public TreePanel getTreePanel() {
+		return treePanel;
+	}
+
+	public void setTreePanel(TreePanel tp) {
+		this.treePanel = tp;
+	}
 
 	public GrammarPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -58,8 +67,7 @@ public class GrammarPanel extends JPanel {
 		setLayout(gridBagLayout);
 
 		scrollPane = new JScrollPane();
-		scrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -86,7 +94,7 @@ public class GrammarPanel extends JPanel {
 					pm.init();
 				}
 
-				lblMessage.setText(pm.getOut());
+				//lblMessage.setText(pm.getOut());
 			}
 		});
 		GridBagConstraints gbc_btnParse = new GridBagConstraints();
@@ -100,10 +108,8 @@ public class GrammarPanel extends JPanel {
 		btnShowTree.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				TreePanel tp = new TreePanel();
-				tp.setManagers(gm, pm);
 				frmTree = new JFrame();
-				frmTree.getContentPane().add(tp);
+				frmTree.getContentPane().add(treePanel);
 				frmTree.setSize(400, 400);
 				frmTree.setVisible(true);
 			}
@@ -149,7 +155,6 @@ public class GrammarPanel extends JPanel {
 		lblMessage.setEditable(false);
 		lblMessage.setLineWrap(true);
 		scrollPane_1.setViewportView(lblMessage);
-		lblMessage.setText("suca");
 		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 	}

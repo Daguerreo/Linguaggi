@@ -40,6 +40,10 @@ import javax.swing.event.DocumentListener;
 import card.*;
 
 public class StatPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9130390602757217750L;
 	private JTextField textFieldNome;
 	private JTextField textFieldSubtype;
 	private JTextArea textAreaText;
@@ -457,6 +461,22 @@ public class StatPanel extends JPanel {
 		add(scrollPane, gbc_scrollPane);
 
 		textAreaText = new JTextArea();
+		textAreaText.getDocument().addDocumentListener(
+				new DocumentListener() {
+					@Override
+					public void insertUpdate(DocumentEvent de) {
+						gm.WriteCardText(textAreaText.getText());
+					}
+
+					@Override
+					public void removeUpdate(DocumentEvent de) {
+						gm.WriteCardText(textAreaText.getText());
+					}
+
+					@Override
+					public void changedUpdate(DocumentEvent de) {
+					}
+				});
 		textAreaText.setRows(4);
 		scrollPane.setViewportView(textAreaText);
 		textAreaText.setColumns(10);

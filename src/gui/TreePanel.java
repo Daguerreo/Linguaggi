@@ -5,6 +5,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import parser.ParseManager;
+import java.awt.Dimension;
 
 public class TreePanel extends JPanel {
 
@@ -27,6 +28,7 @@ public class TreePanel extends JPanel {
 	public TreePanel() {
 
 		tree = new JTree();
+		tree.setPreferredSize(new Dimension(250, 340));
 		add(tree);
 
 	}

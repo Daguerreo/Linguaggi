@@ -95,7 +95,6 @@ public class CardSemanticVisitor implements IVoidVisitor {
 		 * @SuppressWarnings("unused") final String tkIm = n.tokenImage; return;
 		 */
 		System.out.println("visit " + n.tokenImage);
-		// outMsg += n.tokenImage + " ";
 	}
 
 	@Override
@@ -221,7 +220,7 @@ public class CardSemanticVisitor implements IVoidVisitor {
 		// f4 -> <RPAR>
 		n.f4.accept(this);
 
-		if (!element.equals(n.f2.tokenImage)) {
+		if (!element.equals(n.f3.tokenImage)) {
 			outMsg = "Semantic Error: Card cost must have one Element in common with the Card Type.\n";
 		}
 	}
@@ -250,7 +249,7 @@ public class CardSemanticVisitor implements IVoidVisitor {
 
 		if (n.f3.tokenImage.equals(n.f5.tokenImage)
 				|| n.f3.tokenImage.equals(n.f5.tokenImage))
-			outMsg += "Semantic Error: Elemental card cost must be differents\n";
+			outMsg += "Semantic Error: Elemental card cost must be differents.\n";
 	}
 
 	@Override
@@ -283,7 +282,7 @@ public class CardSemanticVisitor implements IVoidVisitor {
 		if (n.f3.tokenImage.equals(n.f5.tokenImage)
 				|| n.f3.tokenImage.equals(n.f7.tokenImage)
 				|| n.f7.tokenImage.equals(n.f5.tokenImage))
-			outMsg += "Semantic Error: Elemental card cost must be differents\n";
+			outMsg += "Semantic Error: Elemental card cost must be differents.\n";
 	}
 
 	@Override

@@ -13,7 +13,8 @@ public class ParseManager {
 	private String in = "";
 	private String out = "";
 	private GuiManager gm;
-
+	private boolean completed = true;
+	
 	public ParseManager() {
 	}
 
@@ -22,14 +23,11 @@ public class ParseManager {
 	}
 
 	public void init() {
-		System.out.println("Sono Card Grammar lolololoool...");
-		System.out.println("It's time to duel! :\n");
 		new CardGrammar(new StringReader(in));
 		parse();
 	}
 
 	public void reInit() {
-		System.out.println("Rematch! :\n");
 		CardGrammar.ReInit(new StringReader(in));
 		parse();
 	}
@@ -53,14 +51,16 @@ public class ParseManager {
 		} catch (Exception e) {
 			// Syntax Error
 			out = "Syntax Error: " + e.getMessage();
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
+			completed = false;
 		} catch (TokenMgrError e1) {
 			// Lexical Error
 			out += e1.getMessage();
-			gm.showResult("bububu");
 			System.err.println(e1.getMessage());
-
+			completed = false;
 		}
+		if( completed );
+			out += "Build Succeded.";
 		gm.showResult(out);
 	}
 
