@@ -203,8 +203,10 @@ public class CardRenderer extends JPanel {
 
 	public void saveImage(File file) {
 		BufferedImage image = new BufferedImage(background.getWidth(null),
-				background.getHeight(null), BufferedImage.TYPE_INT_RGB);
+				background.getHeight(null), BufferedImage.TYPE_INT_ARGB_PRE);
 		Graphics2D graphics2D = image.createGraphics();
+		graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		paintComponent(graphics2D);
 		image = image.getSubimage(2, 2, background.getWidth(null) - 4,
 				background.getHeight(null) - 4);
@@ -219,8 +221,7 @@ public class CardRenderer extends JPanel {
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
 		Graphics2D g = (Graphics2D) graphics;
-		g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
-				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		renderBackground(g);
@@ -247,21 +248,21 @@ public class CardRenderer extends JPanel {
 	}
 
 	private void renderName(Graphics2D g) {
-		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 16);
+		Font font = new Font("Plantagenet Cherokee", Font.BOLD , 16);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(name, 45, 60);
 	}
 
 	private void renderSubtype(Graphics2D g) {
-		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 16);
+		Font font = new Font("Plantagenet Cherokee", Font.BOLD , 16);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(subtype, 165, 90);
 	}
 
 	private void renderType(Graphics2D g) {
-		Font font = new Font("Plantagenet Cherokee", Font.ITALIC, 13);
+		Font font = new Font("Plantagenet Cherokee", Font.BOLD | Font.ITALIC, 13);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(type, 55, 90);
