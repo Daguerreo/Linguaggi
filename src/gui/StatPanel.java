@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 
 import java.awt.GridBagConstraints;
-
 import java.awt.Insets;
 
 import javax.swing.JLabel;
@@ -20,9 +19,10 @@ import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JSpinner;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JSpinner;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
@@ -30,6 +30,7 @@ import javax.swing.JTextArea;
 import java.awt.Checkbox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.io.File;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -489,7 +490,18 @@ public class StatPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gm.getCardPanel().saveImage();
+				JFileChooser fc = new JFileChooser();
+				//Show it.
+		        int returnVal = fc.showDialog(StatPanel.this,"Save");
+		 
+		        //Process the results.
+		        if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            File file = fc.getSelectedFile();
+		            if (!file.getName().endsWith(".png"))
+		            	file = new File(file.getAbsolutePath() + ".png");
+		            gm.getCardPanel().saveImage(file);
+		        }
+				
 			}
 		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();

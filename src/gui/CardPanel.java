@@ -10,12 +10,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.SwingConstants;
 
 public class CardPanel extends JPanel {
 	private GuiManager gm;
-	private CardGraphic cg;
 	private JLabel lblName;
 	private JLabel lblType;
 	private JLabel lblSubtype;
@@ -55,8 +55,7 @@ public class CardPanel extends JPanel {
 		add(lblAtk);
 
 		gifAtk = new JLabel("");
-		gifAtk.setIcon(new ImageIcon(
-				"C:\\Users\\Mau\\workspace\\CardGame\\img\\atk.png"));
+		gifAtk.setIcon(new ImageIcon(CardGraphic.INCOLOR.getAtk()));
 		gifAtk.setBounds(320, 125, 28, 28);
 		gifAtk.setVisible(false);
 		add(gifAtk);
@@ -70,8 +69,7 @@ public class CardPanel extends JPanel {
 		add(lblDif);
 
 		gifDif = new JLabel("");
-		gifDif.setIcon(new ImageIcon(
-				"C:\\Users\\Mau\\workspace\\CardGame\\img\\dif.png"));
+		gifDif.setIcon(new ImageIcon(CardGraphic.INCOLOR.getDif()));
 		gifDif.setBounds(320, 171, 28, 28);
 		gifDif.setVisible(false);
 		add(gifDif);
@@ -85,8 +83,7 @@ public class CardPanel extends JPanel {
 		add(lblRng);
 
 		gifRng = new JLabel("");
-		gifRng.setIcon(new ImageIcon(
-				"C:\\Users\\Mau\\workspace\\CardGame\\img\\rng.png"));
+		gifRng.setIcon(new ImageIcon(CardGraphic.INCOLOR.getRng()));
 		gifRng.setBounds(320, 217, 28, 28);
 		gifRng.setVisible(false);
 		add(gifRng);
@@ -160,13 +157,14 @@ public class CardPanel extends JPanel {
 
 		lblTemplate = new JLabel("");
 		lblTemplate.setFont(new Font("Cambria", Font.PLAIN, 11));
+		
 		lblTemplate.setIcon(new ImageIcon(CardGraphic.INCOLOR.getTemplate()));
 		lblTemplate.setBounds(0, 0, 381, 531);
 		add(lblTemplate);
 
 	}
 
-	public void saveImage() {
+	public void saveImage(File file) {
 
 		BufferedImage image = new BufferedImage(getWidth(), getHeight(),
 				BufferedImage.TYPE_INT_RGB);
@@ -175,9 +173,7 @@ public class CardPanel extends JPanel {
 		paint(graphics2D);
 
 		try {
-			ImageIO.write(image, "png",
-					new File("C:\\Users\\Mau\\workspace\\CardGame\\save\\"
-							+ lblName.getText() + ".png"));
+			ImageIO.write(image, "png",file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -241,10 +237,6 @@ public class CardPanel extends JPanel {
 
 	public GuiManager getGm() {
 		return gm;
-	}
-
-	public CardGraphic getCg() {
-		return cg;
 	}
 
 	public JLabel getGifAtk() {

@@ -1,5 +1,7 @@
 package gui;
 
+import java.net.URL;
+
 public enum CardGraphic {
 	// NONE(-1, "None"),
 	INCOLOR("incolortemplate.png", "incolormark.png", "incolormark10.png"), AIR(
@@ -19,10 +21,9 @@ public enum CardGraphic {
 	private final String template;
 	private final String mark;
 	private final String mark10;
-	private final String path = "C:\\Users\\Mau\\workspace\\CardGame\\img\\";
-	private final String atk = path + "atk.png";
-	private final String dif = path + "dif.png";
-	private final String rng = path + "rng.png";
+	private final String atk = "atk.png";
+	private final String dif = "dif.png";
+	private final String rng = "rng.png";
 
 	CardGraphic(String template, String mark, String mark10) {
 		this.template = template;
@@ -30,32 +31,32 @@ public enum CardGraphic {
 		this.mark10 = mark10;
 	}
 
-	public String getTemplate() {
-		return path + "template\\" + template;
+	public URL getTemplate() {
+		return getClass().getResource("/img/template/" + template);
 	}
 
-	public String getMark() {
-		return path + "mark\\" + mark;
+	public URL getMark() {
+		return getClass().getResource("/img/mark/" + mark);
 	}
 
-	public String getMark10() {
-		return path + "mark\\" + mark10;
+	public URL getMark10() {
+		return getClass().getResource("/img/mark/" + mark10);
 	}
 
 	public String getPath() {
-		return path;
+		return null;
 	}
 
-	public String getAtk() {
-		return atk;
+	public URL getAtk() {
+		return getClass().getResource("/img/" + atk);
 	}
 
-	public String getDif() {
-		return dif;
+	public URL getDif() {
+		return getClass().getResource("/img/" + dif);
 	}
 
-	public String getRng() {
-		return rng;
+	public URL getRng() {
+		return getClass().getResource("/img/" + rng);
 	}
 
 }
