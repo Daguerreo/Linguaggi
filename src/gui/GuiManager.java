@@ -156,17 +156,26 @@ public class GuiManager {
 
 	public void WriteAtk(String c) {
 		if (cardPanel != null)
+		{
 			cardPanel.getLblAtk().setText(c);
+			cardRenderer.setAttack(Integer.parseInt(c));
+		}
 	}
 
 	public void WriteDif(String c) {
 		if (cardPanel != null)
+		{
 			cardPanel.getLblDif().setText(c);
+			cardRenderer.setDefence(Integer.parseInt(c));
+		}
 	}
 
 	public void WriteRng(String c) {
 		if (cardPanel != null)
+		{
 			cardPanel.getLblRng().setText(c);
+			cardRenderer.setRange(Integer.parseInt(c));
+		}
 	}
 
 	public void showStat(boolean result) {

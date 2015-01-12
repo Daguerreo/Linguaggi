@@ -154,6 +154,7 @@ public class CardRenderer extends JPanel {
 
 	public void setAttack(int attack) {
 		this.attack = attack;
+		repaint();
 	}
 
 	public int getDefence() {
@@ -162,6 +163,7 @@ public class CardRenderer extends JPanel {
 
 	public void setDefence(int defence) {
 		this.defence = defence;
+		repaint();
 	}
 
 	public int getRange() {
@@ -170,6 +172,7 @@ public class CardRenderer extends JPanel {
 
 	public void setRange(int range) {
 		this.range = range;
+		repaint();
 	}
 
 	public CardGraphic getStyle() {
