@@ -95,19 +95,20 @@ public class CardRenderer extends JPanel {
 
 	public void setSubtype(String subtype) {
 		this.subtype = subtype;
+		repaint();
 	}
-	
-	public void setCost1(int cost1){
+
+	public void setCost1(int cost1) {
 		this.cost1 = cost1;
 		repaint();
 	}
-	
-	public void setCost2(int cost2){
+
+	public void setCost2(int cost2) {
 		this.cost2 = cost2;
 		repaint();
 	}
-	
-	public void setCost3(int cost3){
+
+	public void setCost3(int cost3) {
 		this.cost3 = cost3;
 		repaint();
 	}
@@ -205,7 +206,8 @@ public class CardRenderer extends JPanel {
 				background.getHeight(null), BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics2D = image.createGraphics();
 		paintComponent(graphics2D);
-		image = image.getSubimage(2, 2, background.getWidth(null)-4, background.getHeight(null)-4);
+		image = image.getSubimage(2, 2, background.getWidth(null) - 4,
+				background.getHeight(null) - 4);
 		try {
 			ImageIO.write(image, "png", file);
 		} catch (Exception e) {
@@ -217,19 +219,19 @@ public class CardRenderer extends JPanel {
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
 		Graphics2D g = (Graphics2D) graphics;
+		g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+				RenderingHints.VALUE_FRACTIONALMETRICS_ON);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		renderBackground(g);
 		renderName(g);
 		renderType(g);
 		renderSubtype(g);
-		try
-		{
+		try {
 			renderCost1(g);
 			renderCost2(g);
 			renderCost3(g);
-		}
-		catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		renderText(g);
@@ -240,32 +242,32 @@ public class CardRenderer extends JPanel {
 		}
 	}
 
-	private void renderBackground(Graphics g) {
+	private void renderBackground(Graphics2D g) {
 		g.drawImage(background, 0, 0, null);
 	}
 
-	private void renderName(Graphics g) {
+	private void renderName(Graphics2D g) {
 		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 16);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(name, 45, 60);
 	}
 
-	private void renderSubtype(Graphics g) {
+	private void renderSubtype(Graphics2D g) {
 		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 16);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(subtype, 165, 90);
 	}
 
-	private void renderType(Graphics g) {
+	private void renderType(Graphics2D g) {
 		Font font = new Font("Plantagenet Cherokee", Font.ITALIC, 13);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(type, 55, 90);
 	}
 
-	private void renderCost1(Graphics g) throws IOException {
+	private void renderCost1(Graphics2D g) throws IOException {
 		if (cost1 < 0)
 			return;
 		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 17);
@@ -275,29 +277,31 @@ public class CardRenderer extends JPanel {
 		g.drawString("" + cost1, 330, 70);
 	}
 
-	private void renderCost2(Graphics g) throws IOException {
+	private void renderCost2(Graphics2D g) throws IOException {
 		if (cost2 < 0)
 			return;
 		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 17);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		if(costStyle2 != null)
+		if (costStyle2 != null)
 			g.drawImage(ImageIO.read(costStyle2.getMark10()), 275, 40, null);
 		else
-			g.drawImage(ImageIO.read(CardGraphic.INCOLOR.getMark10()), 275, 40, null);
+			g.drawImage(ImageIO.read(CardGraphic.INCOLOR.getMark10()), 275, 40,
+					null);
 		g.drawString("" + cost2, 295, 70);
 	}
 
-	private void renderCost3(Graphics g) throws IOException {
+	private void renderCost3(Graphics2D g) throws IOException {
 		if (cost3 < 0)
 			return;
 		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 17);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		if(costStyle3 != null)
+		if (costStyle3 != null)
 			g.drawImage(ImageIO.read(costStyle3.getMark10()), 240, 40, null);
 		else
-			g.drawImage(ImageIO.read(CardGraphic.INCOLOR.getMark10()), 240, 40, null);
+			g.drawImage(ImageIO.read(CardGraphic.INCOLOR.getMark10()), 240, 40,
+					null);
 		g.drawString("" + cost3, 260, 70);
 	}
 
@@ -326,7 +330,7 @@ public class CardRenderer extends JPanel {
 	}
 
 	private void renderText(Graphics2D g) {
-		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 13);
+		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 13);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		drawStringRect(g, 50, 350, 335, 500, 1.5f, text);
@@ -334,7 +338,8 @@ public class CardRenderer extends JPanel {
 
 	private void drawStringRect(Graphics2D graphics, int x1, int y1, int x2,
 			int y2, float interline, String txt) {
-		if(txt.length() <= 0) return;
+		if (txt.length() <= 0)
+			return;
 		AttributedString as = new AttributedString(txt);
 		as.addAttribute(TextAttribute.FOREGROUND, graphics.getPaint());
 		as.addAttribute(TextAttribute.FONT, graphics.getFont());
