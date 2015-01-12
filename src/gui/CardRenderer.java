@@ -75,6 +75,7 @@ public class CardRenderer extends JPanel {
 
 	public void setText(String text) {
 		this.text = text;
+		repaint();
 	}
 
 	public void setType(String type) {
