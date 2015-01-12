@@ -300,11 +300,12 @@ public class CardRenderer extends JPanel {
 		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 13);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		drawStringRect(g, 50, 350, 335, 450, 1.5f, text);
+		drawStringRect(g, 50, 350, 335, 500, 1.5f, text);
 	}
 
 	private void drawStringRect(Graphics2D graphics, int x1, int y1, int x2,
 			int y2, float interline, String txt) {
+		if(txt.length() <= 0) return;
 		AttributedString as = new AttributedString(txt);
 		as.addAttribute(TextAttribute.FOREGROUND, graphics.getPaint());
 		as.addAttribute(TextAttribute.FONT, graphics.getFont());
