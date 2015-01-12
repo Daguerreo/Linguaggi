@@ -1,12 +1,16 @@
 package gui;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.GridBagLayout;
 
 import javax.swing.JScrollPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Component;
@@ -14,8 +18,12 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.ScrollPaneConstants;
 
+import card.Cost;
 import parser.ParseManager;
+
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 
 public class MainWindow {
 
@@ -36,13 +44,19 @@ public class MainWindow {
 	 * Create the application.
 	 */
 	public MainWindow() {
-		initialize();
+		try {
+			initialize();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frmCardCreator = new JFrame();
 		frmCardCreator.setVisible(true);
 		frmCardCreator.setTitle("Card Creator");
@@ -143,5 +157,24 @@ public class MainWindow {
 		gridBagLayout_1.rowHeights = new int[]{322, 36, 39, 0, 90};
 		gridBagLayout_1.columnWidths = new int[]{151};
 		scrollPaneDx.setViewportView(rightpanel);
+		
+		CardRenderer r = new CardRenderer();
+		r.setStyle(CardGraphic.AIR);
+		r.setCreature(true);
+		r.setName("Nome");
+		r.setSubtype("Gatto");
+		r.setType("Tipo");
+		r.setText("Google wasn’t awfully helpful while I was searching for solution to word wrapping a text when drawing in Java, so let’s teach Google this:");
+		r.setCost1(2, ImageIO.read(CardGraphic.AIR.getMark10()));
+		r.setCost2(2, ImageIO.read(CardGraphic.AIR.getMark10()));
+		r.setCost3(2, ImageIO.read(CardGraphic.AIR.getMark10()));
+		r.saveImage(new File("prova.png"));
+		
+		guimanager.setCardRenderer(r);
+		
+		JFrame jf = new JFrame();
+		jf.getContentPane().add(r);
+		jf.pack();
+		jf.setVisible(true);
 	}
 }

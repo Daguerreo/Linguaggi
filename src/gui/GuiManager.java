@@ -11,6 +11,7 @@ import card.*;
 public class GuiManager {
 	private StatPanel statPanel;
 	private CardPanel cardPanel;
+	private CardRenderer cardRenderer;
 	private GrammarPanel grammarPanel;
 	private TreePanel treePanel;
 	
@@ -19,6 +20,14 @@ public class GuiManager {
 
 	public GuiManager() {
 		parserInit = false;
+	}
+	
+	public CardRenderer getCardRenderer() {
+		return cardRenderer;
+	}
+
+	public void setCardRenderer(CardRenderer cardRenderer) {
+		this.cardRenderer = cardRenderer;
 	}
 
 	public StatPanel getStatPanel() {
@@ -80,32 +89,48 @@ public class GuiManager {
 
 	public void writeCardType(String s) {
 		if (cardPanel != null) {
-			if (s.toUpperCase().equals(
-					CardType.CREATURE.getName().toUpperCase()))
+			if (s.equalsIgnoreCase(CardType.CREATURE.getName()))
+			{
 				cardPanel.getLblType().setText(CardType.CREATURE.getName());
-
-			if (s.toUpperCase().equals(CardType.SPELL.getName().toUpperCase()))
+				cardRenderer.setType(CardType.CREATURE.getName());
+			}
+			
+			else if (s.equalsIgnoreCase(CardType.SPELL.getName()))
+			{
 				cardPanel.getLblType().setText(CardType.SPELL.getName());
+				cardRenderer.setType(CardType.SPELL.getName());
+			}
 
-			if (s.toUpperCase().equals(
-					CardType.PERMANENT.getName().toUpperCase()))
+			else if (s.equalsIgnoreCase(CardType.PERMANENT.getName()))
+			{
 				cardPanel.getLblType().setText(CardType.PERMANENT.getName());
+				cardRenderer.setType(CardType.PERMANENT.getName());
+			}
 		}
 	}
 
 	public void WriteCardName(String s) {
 		if (cardPanel != null)
+		{
 			cardPanel.getLblName().setText(s);
+			cardRenderer.setName(s);
+		}
 	}
 
 	public void WriteCardSubType(String s) {
 		if (cardPanel != null)
+		{
 			cardPanel.getLblSubtype().setText(s);
+			cardRenderer.setSubtype(s);
+		}
 	}
 
 	public void WriteCardText(String s) {
 		if (cardPanel != null)
+		{
 			cardPanel.getLblText().setText(s);
+			cardRenderer.setText(s);
+		}
 	}
 
 	public void WriteCost1(String c) {
