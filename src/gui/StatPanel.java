@@ -244,11 +244,13 @@ public class StatPanel extends JPanel {
 				comboCost2.setEnabled(bCost2);
 				spinCost2.setEnabled(bCost2);
 				checkbox2.setEnabled(bCost2);
+				gm.getCardRenderer().setCost2((int)spinCost3.getValue());
 				gm.getCardPanel().getLblCost2().setVisible(bCost2);
 				gm.getCardPanel().getLblMark2().setVisible(bCost2);
 
 				if (bCost2 == false) {
 					bCost3 = false;
+					gm.getCardRenderer().setCost2(-1);
 					checkbox2.setState(bCost3);
 					comboCost3.setEnabled(bCost3);
 					spinCost3.setEnabled(bCost3);
@@ -295,6 +297,7 @@ public class StatPanel extends JPanel {
 				bCost3 = !bCost3;
 				comboCost3.setEnabled(bCost3);
 				spinCost3.setEnabled(bCost3);
+				gm.getCardRenderer().setCost3((int)spinCost3.getValue());
 				gm.getCardPanel().getLblCost3().setVisible(bCost3);
 				gm.getCardPanel().getLblMark3().setVisible(bCost3);
 			}
@@ -526,6 +529,10 @@ public class StatPanel extends JPanel {
 		            if (!file.getName().endsWith(".png"))
 		            	file = new File(file.getAbsolutePath() + ".png");
 		            gm.getCardPanel().saveImage(file);
+		            
+		            file = new File(file.getParent() + File.separator + "new_" + file.getName());
+		            System.out.println(file.getAbsolutePath());
+		            gm.getCardRenderer().saveImage(file);
 		        }
 				
 			}

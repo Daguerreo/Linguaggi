@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineBreakMeasurer;
@@ -34,9 +35,9 @@ public class CardRenderer extends JPanel {
 	private int cost2 = -1;
 	private int cost3 = -1;
 
-	private Image costImage1;
-	private Image costImage2;
-	private Image costImage3;
+	private CardGraphic costStyle1;
+	private CardGraphic costStyle2;
+	private CardGraphic costStyle3;
 
 	private boolean creature;
 
@@ -95,22 +96,34 @@ public class CardRenderer extends JPanel {
 	public void setSubtype(String subtype) {
 		this.subtype = subtype;
 	}
-
-	public void setCost1(int cost1, Image costImage1) {
+	
+	public void setCost1(int cost1){
 		this.cost1 = cost1;
-		this.costImage1 = costImage1;
 		repaint();
 	}
-
-	public void setCost2(int cost2, Image costImage2) {
+	
+	public void setCost2(int cost2){
 		this.cost2 = cost2;
-		this.costImage2 = costImage2;
+		repaint();
+	}
+	
+	public void setCost3(int cost3){
+		this.cost3 = cost3;
 		repaint();
 	}
 
-	public void setCost3(int cost3, Image costImage3) {
-		this.cost3 = cost3;
-		this.costImage3 = costImage3;
+	public void setCostStyle1(CardGraphic style1) {
+		this.costStyle1 = style1;
+		repaint();
+	}
+
+	public void setCostStyle2(CardGraphic style2) {
+		this.costStyle2 = style2;
+		repaint();
+	}
+
+	public void setCostStyle3(CardGraphic style3) {
+		this.costStyle3 = style3;
 		repaint();
 	}
 
@@ -192,6 +205,7 @@ public class CardRenderer extends JPanel {
 				background.getHeight(null), BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics2D = image.createGraphics();
 		paintComponent(graphics2D);
+		image = image.getSubimage(2, 2, background.getWidth(null)-4, background.getHeight(null)-4);
 		try {
 			ImageIO.write(image, "png", file);
 		} catch (Exception e) {
@@ -209,9 +223,15 @@ public class CardRenderer extends JPanel {
 		renderName(g);
 		renderType(g);
 		renderSubtype(g);
-		renderCost1(g);
-		renderCost2(g);
-		renderCost3(g);
+		try
+		{
+			renderCost1(g);
+			renderCost2(g);
+			renderCost3(g);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 		renderText(g);
 		if (creature) {
 			renderAttack(g);
@@ -245,33 +265,39 @@ public class CardRenderer extends JPanel {
 		g.drawString(type, 55, 90);
 	}
 
-	private void renderCost1(Graphics g) {
+	private void renderCost1(Graphics g) throws IOException {
 		if (cost1 < 0)
 			return;
 		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 17);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawImage(costImage1, 310, 40, null);
+		g.drawImage(ImageIO.read(costStyle1.getMark10()), 310, 40, null);
 		g.drawString("" + cost1, 330, 70);
 	}
 
-	private void renderCost2(Graphics g) {
+	private void renderCost2(Graphics g) throws IOException {
 		if (cost2 < 0)
 			return;
 		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 17);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawImage(costImage2, 275, 40, null);
+		if(costStyle2 != null)
+			g.drawImage(ImageIO.read(costStyle2.getMark10()), 275, 40, null);
+		else
+			g.drawImage(ImageIO.read(CardGraphic.INCOLOR.getMark10()), 275, 40, null);
 		g.drawString("" + cost2, 295, 70);
 	}
 
-	private void renderCost3(Graphics g) {
+	private void renderCost3(Graphics g) throws IOException {
 		if (cost3 < 0)
 			return;
 		Font font = new Font("Plantagenet Cherokee", Font.BOLD, 17);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawImage(costImage3, 240, 40, null);
+		if(costStyle3 != null)
+			g.drawImage(ImageIO.read(costStyle3.getMark10()), 240, 40, null);
+		else
+			g.drawImage(ImageIO.read(CardGraphic.INCOLOR.getMark10()), 240, 40, null);
 		g.drawString("" + cost3, 260, 70);
 	}
 

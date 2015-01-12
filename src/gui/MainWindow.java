@@ -159,16 +159,10 @@ public class MainWindow {
 		scrollPaneDx.setViewportView(rightpanel);
 		
 		CardRenderer r = new CardRenderer();
-		r.setStyle(CardGraphic.AIR);
-		r.setCreature(true);
-		r.setName("Nome");
-		r.setSubtype("Gatto");
-		r.setType("Tipo");
-		r.setText("Google wasn’t awfully helpful while I was searching for solution to word wrapping a text when drawing in Java, so let’s teach Google this:");
-		r.setCost1(2, ImageIO.read(CardGraphic.AIR.getMark10()));
-		r.setCost2(2, ImageIO.read(CardGraphic.AIR.getMark10()));
-		r.setCost3(2, ImageIO.read(CardGraphic.AIR.getMark10()));
-		r.saveImage(new File("prova.png"));
+		r.setStyle(CardGraphic.INCOLOR);
+		r.setCost1(0);
+		r.setCostStyle1(CardGraphic.INCOLOR);
+		//r.saveImage(new File("prova.png"));
 		
 		guimanager.setCardRenderer(r);
 		
