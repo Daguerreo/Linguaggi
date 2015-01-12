@@ -490,7 +490,13 @@ public class StatPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser();
+				ClassLoader classLoader = getClass().getClassLoader();
+			    File saveFolder = new File(classLoader.getResource("").getPath() + "savedCards");
+			    if(!saveFolder.exists())
+			    {
+			    	saveFolder.mkdir();
+			    }
+				JFileChooser fc = new JFileChooser(saveFolder);
 				//Show it.
 		        int returnVal = fc.showDialog(StatPanel.this,"Save");
 		 
