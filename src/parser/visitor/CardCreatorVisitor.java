@@ -190,7 +190,7 @@ public class CardCreatorVisitor implements IVoidVisitor {
 			text += " " + node.tokenImage;
 		}
 
-		gm.WriteCardName(text);
+		gm.writeCardName(text);
 	}
 
 	@Override
@@ -231,7 +231,7 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f4 -> <RPAR>
 		n.f4.accept(this);
 
-		gm.WriteCost1(n.f2.tokenImage);
+		gm.writeCost1(n.f2.tokenImage);
 		gm.paintCost(1, n.f3.tokenImage);
 		gm.showCost(1);
 	}
@@ -253,9 +253,9 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f6 -> <RPAR>
 		n.f6.accept(this);
 
-		gm.WriteCost1(n.f2.tokenImage);
+		gm.writeCost1(n.f2.tokenImage);
 		gm.paintCost(1, n.f3.tokenImage);
-		gm.WriteCost2(n.f4.tokenImage);
+		gm.writeCost2(n.f4.tokenImage);
 		gm.paintCost(2, n.f5.tokenImage);
 		gm.showCost(2);
 	}
@@ -281,11 +281,11 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f8 -> <RPAR>
 		n.f8.accept(this);
 
-		gm.WriteCost1(n.f2.tokenImage);
+		gm.writeCost1(n.f2.tokenImage);
 		gm.paintCost(1, n.f3.tokenImage);
-		gm.WriteCost2(n.f4.tokenImage);
+		gm.writeCost2(n.f4.tokenImage);
 		gm.paintCost(2, n.f5.tokenImage);
-		gm.WriteCost3(n.f6.tokenImage);
+		gm.writeCost3(n.f6.tokenImage);
 		gm.paintCost(3, n.f7.tokenImage);
 		gm.showCost(3);
 	}
@@ -306,7 +306,7 @@ public class CardCreatorVisitor implements IVoidVisitor {
 			NodeToken node = (NodeToken) n.f2.nodes.get(i);
 			text += " " + node.tokenImage;
 		}
-		gm.WriteCardSubType(text);
+		gm.writeCardSubType(text);
 	}
 
 	@Override
@@ -329,7 +329,7 @@ public class CardCreatorVisitor implements IVoidVisitor {
 			NodeToken node = (NodeToken) ((NodeChoice) n.f2.nodes.get(i)).choice;
 			text += " " + node.tokenImage;
 		}
-		gm.WriteCardText(text);
+		gm.writeCardText(text);
 	}
 
 	@Override
@@ -347,9 +347,9 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f5 -> <RPAR>
 		n.f5.accept(this);
 
-		gm.WriteAtk(n.f2.tokenImage);
-		gm.WriteDif(n.f3.tokenImage);
-		gm.WriteRng(n.f4.tokenImage);
+		gm.writeAtk(n.f2.tokenImage);
+		gm.writeDif(n.f3.tokenImage);
+		gm.writeRng(n.f4.tokenImage);
 	}
 
 }

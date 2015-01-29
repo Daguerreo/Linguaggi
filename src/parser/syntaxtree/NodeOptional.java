@@ -8,46 +8,41 @@ import parser.visitor.IVoidVisitor;
 
 public class NodeOptional implements INode {
 
-	public INode node;
+  public INode node;
 
-	private static final long serialVersionUID = 147L;
+  private static final long serialVersionUID = 147L;
 
-	public NodeOptional() {
-		node = null;
-	}
+  public NodeOptional() {
+    node = null;
+  }
 
-	public NodeOptional(final INode n) {
-		addNode(n);
-	}
+  public NodeOptional(final INode n) {
+    addNode(n);
+  }
 
-	public void addNode(final INode n) {
-		if (node != null)
-			throw new Error("Attempt to set optional node twice");
-		node = n;
-	}
+  public void addNode(final INode n) {
+    if (node != null)
+      throw new Error("Attempt to set optional node twice");
+    node = n;
+  }
 
-	public boolean present() {
-		return (node != null);
-	}
+  public boolean present() {
+    return (node != null); }
 
-	@Override
-	public <R, A> R accept(final IRetArguVisitor<R, A> vis, final A argu) {
-		return vis.visit(this, argu);
-	}
+  public <R, A> R accept(final IRetArguVisitor<R, A> vis, final A argu) {
+    return vis.visit(this, argu);
+  }
 
-	@Override
-	public <R> R accept(final IRetVisitor<R> vis) {
-		return vis.visit(this);
-	}
+  public <R> R accept(final IRetVisitor<R> vis) {
+    return vis.visit(this);
+  }
 
-	@Override
-	public <A> void accept(final IVoidArguVisitor<A> vis, final A argu) {
-		vis.visit(this, argu);
-	}
+  public <A> void accept(final IVoidArguVisitor<A> vis, final A argu) {
+    vis.visit(this, argu);
+  }
 
-	@Override
-	public void accept(final IVoidVisitor vis) {
-		vis.visit(this);
-	}
+  public void accept(final IVoidVisitor vis) {
+    vis.visit(this);
+  }
 
 }

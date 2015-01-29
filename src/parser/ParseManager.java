@@ -59,7 +59,7 @@ public class ParseManager {
 			System.err.println(e1.getMessage());
 			completed = false;
 		}
-		if( completed );
+		if( completed )
 			out += "Build Succeded.";
 		gm.showResult(out);
 	}

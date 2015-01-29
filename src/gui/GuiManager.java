@@ -106,28 +106,28 @@ public class GuiManager {
 		}
 	}
 
-	public void WriteCardName(String s) {
+	public void writeCardName(String s) {
 		if (cardPanel != null) {
 			cardPanel.getLblName().setText(s);
 			cardRenderer.setName(s);
 		}
 	}
 
-	public void WriteCardSubType(String s) {
+	public void writeCardSubType(String s) {
 		if (cardPanel != null) {
 			cardPanel.getLblSubtype().setText(s);
 			cardRenderer.setSubtype(s);
 		}
 	}
 
-	public void WriteCardText(String s) {
+	public void writeCardText(String s) {
 		if (cardPanel != null) {
 			cardPanel.getLblText().setText(s);
 			cardRenderer.setText(s);
 		}
 	}
 
-	public void WriteCost1(String c) {
+	public void writeCost1(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblCost1().setText(c);
 			cardPanel.getLblCost1().setVisible(true);
@@ -135,7 +135,7 @@ public class GuiManager {
 		}
 	}
 
-	public void WriteCost2(String c) {
+	public void writeCost2(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblCost2().setText(c);
 			cardPanel.getLblCost2().setVisible(true);
@@ -143,7 +143,7 @@ public class GuiManager {
 		}
 	}
 
-	public void WriteCost3(String c) {
+	public void writeCost3(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblCost3().setText(c);
 			cardPanel.getLblCost3().setVisible(true);
@@ -151,21 +151,21 @@ public class GuiManager {
 		}
 	}
 
-	public void WriteAtk(String c) {
+	public void writeAtk(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblAtk().setText(c);
 			cardRenderer.setAttack(Integer.parseInt(c));
 		}
 	}
 
-	public void WriteDif(String c) {
+	public void writeDif(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblDif().setText(c);
 			cardRenderer.setDefence(Integer.parseInt(c));
 		}
 	}
 
-	public void WriteRng(String c) {
+	public void writeRng(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblRng().setText(c);
 			cardRenderer.setRange(Integer.parseInt(c));
@@ -198,8 +198,8 @@ public class GuiManager {
 	}
 
 	/*
-	 * Visualizza l'icona dell'elemento. CostNum indica quale dei tre costi
-	 * visualizzare
+	 * Visualizza l'icona dell'elemento. 
+	 * CostNum indica quale dei tre costi visualizzare
 	 */
 	public void paintCost(int costNum, String elem) {
 		if (cardPanel != null) {

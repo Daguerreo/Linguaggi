@@ -147,12 +147,12 @@ public class StatPanel extends JPanel {
 		textFieldNome.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent de) {
-				gm.WriteCardName(textFieldNome.getText());
+				gm.writeCardName(textFieldNome.getText());
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent de) {
-				gm.WriteCardName(textFieldNome.getText());
+				gm.writeCardName(textFieldNome.getText());
 			}
 
 			@Override
@@ -206,7 +206,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.WriteCost1(Integer.toString((int) mySpinner.getValue()));
+				gm.writeCost1(Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 		GridBagConstraints gbc_spinCost = new GridBagConstraints();
@@ -223,7 +223,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.WriteCost2(Integer.toString((int) mySpinner.getValue()));
+				gm.writeCost2(Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 		checkbox2 = new Checkbox("");
@@ -233,7 +233,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.WriteCost3(Integer.toString((int) mySpinner.getValue()));
+				gm.writeCost3(Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 
@@ -347,12 +347,12 @@ public class StatPanel extends JPanel {
 				new DocumentListener() {
 					@Override
 					public void insertUpdate(DocumentEvent de) {
-						gm.WriteCardSubType(textFieldSubtype.getText());
+						gm.writeCardSubType(textFieldSubtype.getText());
 					}
 
 					@Override
 					public void removeUpdate(DocumentEvent de) {
-						gm.WriteCardSubType(textFieldSubtype.getText());
+						gm.writeCardSubType(textFieldSubtype.getText());
 					}
 
 					@Override
@@ -382,7 +382,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.WriteAtk(Integer.toString((int) mySpinner.getValue()));
+				gm.writeAtk(Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 
@@ -416,7 +416,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.WriteDif(Integer.toString((int) mySpinner.getValue()));
+				gm.writeDif(Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 
@@ -441,7 +441,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.WriteRng(Integer.toString((int) mySpinner.getValue()));
+				gm.writeRng(Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 
@@ -468,12 +468,12 @@ public class StatPanel extends JPanel {
 				new DocumentListener() {
 					@Override
 					public void insertUpdate(DocumentEvent de) {
-						gm.WriteCardText(textAreaText.getText());
+						gm.writeCardText(textAreaText.getText());
 					}
 
 					@Override
 					public void removeUpdate(DocumentEvent de) {
-						gm.WriteCardText(textAreaText.getText());
+						gm.writeCardText(textAreaText.getText());
 					}
 
 					@Override
@@ -498,9 +498,9 @@ public class StatPanel extends JPanel {
 		btnUpdate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				gm.WriteCardName(textFieldNome.getText());
-				gm.WriteCardSubType(textFieldSubtype.getText());
-				gm.WriteCardText(textAreaText.getText());
+				gm.writeCardName(textFieldNome.getText());
+				gm.writeCardSubType(textFieldSubtype.getText());
+				gm.writeCardText(textAreaText.getText());
 			}
 		});
 		GridBagConstraints gbc_btnUpdate = new GridBagConstraints();
