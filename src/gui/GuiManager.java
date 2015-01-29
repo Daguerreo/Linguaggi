@@ -127,14 +127,33 @@ public class GuiManager {
 		}
 	}
 
-	public void writeCost1(String c) {
+	public void writeCost(int costNum, String c) {
 		if (cardPanel != null) {
-			cardPanel.getLblCost1().setText(c);
-			cardPanel.getLblCost1().setVisible(true);
-			cardRenderer.setCost1(Integer.parseInt(c));
+			JLabel label;
+			switch( costNum )
+			{
+				case 3:
+					label = cardPanel.getLblCost3();
+					cardRenderer.setCost3(Integer.parseInt(c));
+				break;
+				case 2:
+					label = cardPanel.getLblCost2();
+					cardRenderer.setCost2(Integer.parseInt(c));
+				break;
+				
+				case 1:
+				default:
+					label = cardPanel.getLblCost1();
+					cardRenderer.setCost1(Integer.parseInt(c));
+			}
+			
+			label.setText(c);
+			label.setVisible(true);
+			
 		}
 	}
 
+	@Deprecated
 	public void writeCost2(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblCost2().setText(c);
@@ -143,6 +162,7 @@ public class GuiManager {
 		}
 	}
 
+	@Deprecated
 	public void writeCost3(String c) {
 		if (cardPanel != null) {
 			cardPanel.getLblCost3().setText(c);

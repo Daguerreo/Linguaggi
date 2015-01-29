@@ -206,7 +206,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.writeCost1(Integer.toString((int) mySpinner.getValue()));
+				gm.writeCost(1, Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 		GridBagConstraints gbc_spinCost = new GridBagConstraints();
@@ -223,7 +223,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.writeCost2(Integer.toString((int) mySpinner.getValue()));
+				gm.writeCost(2, Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 		checkbox2 = new Checkbox("");
@@ -233,7 +233,7 @@ public class StatPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSpinner mySpinner = (JSpinner) (e.getSource());
-				gm.writeCost3(Integer.toString((int) mySpinner.getValue()));
+				gm.writeCost(3, Integer.toString((int) mySpinner.getValue()));
 			}
 		});
 

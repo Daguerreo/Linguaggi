@@ -231,7 +231,7 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f4 -> <RPAR>
 		n.f4.accept(this);
 
-		gm.writeCost1(n.f2.tokenImage);
+		gm.writeCost(1, n.f2.tokenImage);
 		gm.paintCost(1, n.f3.tokenImage);
 		gm.showCost(1);
 	}
@@ -253,9 +253,9 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f6 -> <RPAR>
 		n.f6.accept(this);
 
-		gm.writeCost1(n.f2.tokenImage);
+		gm.writeCost(1, n.f2.tokenImage);
 		gm.paintCost(1, n.f3.tokenImage);
-		gm.writeCost2(n.f4.tokenImage);
+		gm.writeCost(2, n.f4.tokenImage);
 		gm.paintCost(2, n.f5.tokenImage);
 		gm.showCost(2);
 	}
@@ -281,11 +281,11 @@ public class CardCreatorVisitor implements IVoidVisitor {
 		// f8 -> <RPAR>
 		n.f8.accept(this);
 
-		gm.writeCost1(n.f2.tokenImage);
+		gm.writeCost(1, n.f2.tokenImage);
 		gm.paintCost(1, n.f3.tokenImage);
-		gm.writeCost2(n.f4.tokenImage);
+		gm.writeCost(2, n.f4.tokenImage);
 		gm.paintCost(2, n.f5.tokenImage);
-		gm.writeCost3(n.f6.tokenImage);
+		gm.writeCost(3, n.f6.tokenImage);
 		gm.paintCost(3, n.f7.tokenImage);
 		gm.showCost(3);
 	}
