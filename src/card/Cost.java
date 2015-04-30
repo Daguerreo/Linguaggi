@@ -2,7 +2,9 @@ package card;
 
 public class Cost {
 	public enum CostType {
-		MONO, DUO, TRIO
+		MONO, 
+		DUO, 
+		TRIO
 	}
 
 	CostType cost;

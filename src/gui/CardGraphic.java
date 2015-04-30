@@ -2,7 +2,7 @@ package gui;
 
 import java.net.URL;
 
-public enum CardGraphic {
+public enum CardGraphic {  
 	// NONE(-1, "None"),
 	INCOLOR("incolortemplate.png", "incolormark.png", "incolormark10.png"), 
 	AIR("airtemplate.png", "airmark.png", "airmark10.png"), 

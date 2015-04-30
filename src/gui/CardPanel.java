@@ -41,8 +41,9 @@ public class CardPanel extends JPanel {
 		// setBackground(Color.ORANGE);
 		setLayout(null);
 		Font fontNum = new Font("Plantagenet Cherokee", Font.BOLD, 17);
-		Font fontName = new Font("Plantagenet Cherokee", Font.PLAIN, 16);
-		Font fontType = new Font("Plantagenet Cherokee", Font.ITALIC, 13);
+		Font fontName = new Font("Plantagenet Cherokee", Font.BOLD, 15);
+		Font fontType = new Font("Plantagenet Cherokee", Font.ITALIC | Font.BOLD, 13);
+		Font fontSubType = new Font("Plantagenet Cherokee", Font.BOLD, 13);
 		Font font = new Font("Plantagenet Cherokee", Font.PLAIN, 13);
 
 		lblAtk = new JLabel("0");
@@ -143,7 +144,7 @@ public class CardPanel extends JPanel {
 
 		lblSubtype = new JLabel("");
 		lblSubtype.setForeground(Color.WHITE);
-		lblSubtype.setFont(font);
+		lblSubtype.setFont(fontSubType);
 		lblSubtype.setBounds(163, 79, 166, 14);
 		add(lblSubtype);
 

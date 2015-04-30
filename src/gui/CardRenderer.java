@@ -248,14 +248,14 @@ public class CardRenderer extends JPanel {
 	}
 
 	private void renderName(Graphics2D g) {
-		Font font = new Font("Plantagenet Cherokee", Font.BOLD , 16);
+		Font font = new Font("Plantagenet Cherokee", Font.BOLD , 15);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(name, 45, 60);
 	}
 
 	private void renderSubtype(Graphics2D g) {
-		Font font = new Font("Plantagenet Cherokee", Font.BOLD , 16);
+		Font font = new Font("Plantagenet Cherokee", Font.BOLD , 13);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(subtype, 165, 90);

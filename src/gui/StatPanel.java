@@ -522,7 +522,7 @@ public class StatPanel extends JPanel {
 				JFileChooser fc = new JFileChooser(saveFolder);
 				//Show it.
 		        int returnVal = fc.showDialog(StatPanel.this,"Save");
-		 
+		  
 		        //Process the results.
 		        if (returnVal == JFileChooser.APPROVE_OPTION) {
 		            File file = fc.getSelectedFile();
